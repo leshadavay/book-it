@@ -3,8 +3,7 @@ import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function Layout({ children, title }) {
-  const title = title || "Book Best Hotels";
+function Layout({ children, title = "Book Best Hotels" }) {
   return (
     <div>
       <Head>
