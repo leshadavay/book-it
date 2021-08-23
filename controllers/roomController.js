@@ -4,7 +4,7 @@ import APIRequest from "../utils/APIRequest";
 import { checkObjectId, errorReport, successReport } from "../utils/common";
 import ErrorHandler from "../utils/errorHandler";
 
-const allRooms = tryCatchAsyncErrors(async (req, res) => {
+const allRooms = tryCatchAsyncErrors(async (req, res, next) => {
   const perPage = 4;
   const totalCount = await Room.countDocuments();
 

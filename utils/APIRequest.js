@@ -1,4 +1,4 @@
-class APIParams {
+class APIRequest {
   constructor(run, query) {
     this.run = run;
     this.query = query;
@@ -34,4 +34,4 @@ class APIParams {
     return this;
   }
 }
-export default APIParams;
+export default APIRequest;
