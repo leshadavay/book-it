@@ -1,8 +1,8 @@
 import { getRoomDetails } from "../../redux/actions/roomActions";
 import { wrapper } from "../../redux/store";
-import RoomDetails from "../components/Room/RoomDetails";
+import RoomDetails from "../../components/Room/RoomDetails";
 
-import Layout from "../components/Layout/Layout";
+import Layout from "../../components/Layout/Layout";
 
 export default function Index() {
   return (

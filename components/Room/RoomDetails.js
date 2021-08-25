@@ -3,7 +3,8 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors } from "../../../redux/actions/roomActions";
+import { clearErrors } from "../../redux/actions/roomActions";
+
 import RoomFeatures from "./RoomFeatures";
 
 function RoomDetails() {
