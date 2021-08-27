@@ -1,3 +1,5 @@
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
 import mongoDBConnect from "../../../config/db";
 import User from "../../../models/user";
 
