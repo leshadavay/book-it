@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 function RoomItem({ key, room }) {
   return (
-    <div className="col-sm-12 col-md-6 col-lg-3 my-3">
+    <div className="col-sm-12 col-md-6 col-lg-3 my-3" key={key}>
       <div className="card p-2">
         <Image
           className="card-img-top mx-auto"

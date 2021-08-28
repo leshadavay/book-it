@@ -3,11 +3,20 @@ import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
 import ButtonLoader from "../Common/ButtonLoader";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
+  //get current user
+  const { user } = useSelector((state) => state.auth);
+  if (user) {
+    window.location.href = "/";
+  }
+
+  //submit login
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

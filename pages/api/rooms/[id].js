@@ -1,13 +1,13 @@
 import nc from "next-connect";
 import mongoDBConnect from "../../../config/db";
-import errorReport from "../../../middlewares/errorReport";
+import onError from "../../../middlewares/onError";
 import {
   getRoomDetails,
   updateRoomDetails,
   deleteRoomDetails,
 } from "../../../controllers/roomController";
 
-const handler = nc({ onError: errorReport });
+const handler = nc({ onError });
 
 mongoDBConnect();
 
