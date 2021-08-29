@@ -13,7 +13,7 @@ function RoomDetails() {
     room: { room },
     error,
   } = useSelector((state) => state.roomDetails);
-  console.log("rooM: ", room);
+
   useEffect(() => {
     if (error) {
       toast.error(error);

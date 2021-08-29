@@ -43,7 +43,7 @@ const registerUser = tryCatchAsyncErrors(async (req, res, next) => {
   });
 });
 
-//get current user (/api/me)
+//get current user (/api/user/me)
 const currentUserProfile = tryCatchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
@@ -53,4 +53,44 @@ const currentUserProfile = tryCatchAsyncErrors(async (req, res, next) => {
   });
 });
 
-export { registerUser, currentUserProfile };
+//update current user (/api/user/update)
+const updateUserProfile = tryCatchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name;
+    user.name = req.body.email;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+  }
+
+  //update avatar
+  if (req.body.avatar !== "") {
+    const image_public_id = user.avatar.public_id;
+    //delte previous image
+    await cloudinary.v2.uploader.destroy(image_public_id);
+    const cloudinaryUpload = await cloudinary.v2.uploader.upload(
+      req.body.avatar,
+      {
+        folder: "fakebook/avatars",
+        width: "150",
+        crop: "scale",
+      }
+    );
+
+    user.avatar = {
+      public_id: cloudinaryUpload.public_id,
+      url: cloudinaryUpload.secure_url,
+    };
+  }
+
+  //save user into db
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+export { registerUser, currentUserProfile, updateUserProfile };

@@ -53,7 +53,7 @@ function Header() {
                 className="dropdown-menu"
                 aria-labelledby="dropDownMenuButton"
               >
-                <Link href="/me/update">
+                <Link href="/user/me">
                   <a className="dropdown-item">My Profile</a>
                 </Link>
                 <Link href="/bookings/me">
