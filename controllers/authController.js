@@ -2,6 +2,8 @@ import tryCatchAsyncErrors from "../middlewares/tryCatchAsyncErrors";
 import User from "../models/user";
 import cloudinary from "cloudinary";
 import ErrorHandler from "../utils/errorHandler";
+import absoluteUrl from "next-absolute-url";
+import sendEmail from "../utils/sendEmail";
 
 //set up cloudinary config
 cloudinary.config({
@@ -93,4 +95,50 @@ const updateUserProfile = tryCatchAsyncErrors(async (req, res, next) => {
   });
 });
 
-export { registerUser, currentUserProfile, updateUserProfile };
+//forgot password (/api/user/forgot)
+const forgotUserPassword = tryCatchAsyncErrors(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(new ErrorHandler("User not found with this email", 404));
+  }
+
+  //get reset token
+  const resetToken = user.getResetPasswordToken();
+
+  await user.save({ validateBeforeSave: false });
+
+  //get current orign
+  const { origin } = absoluteUrl(req);
+
+  //create reset password url
+  const resetUrl = `${origin}/password/reset/${resetToken}`;
+
+  const message = `Please click to the following url to reset your password:\n\n ${resetUrl}\n\n`;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "FakeBook Password Recovery",
+      message,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to: ${user.email}`,
+    });
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save({ validateBeforeSave: false });
+    return next(new ErrorHandler(error.message, 400));
+  }
+});
+
+export {
+  registerUser,
+  currentUserProfile,
+  updateUserProfile,
+  forgotUserPassword,
+};
