@@ -27,14 +27,16 @@ function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(
-      registerUser({
-        name,
-        email,
-        password,
-        avatar,
-      })
-    );
+    if (email && password) {
+      dispatch(
+        registerUser({
+          name,
+          email,
+          password,
+          avatar,
+        })
+      );
+    }
   };
 
   const onChange = (e) => {

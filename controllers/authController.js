@@ -4,6 +4,7 @@ import cloudinary from "cloudinary";
 import ErrorHandler from "../utils/errorHandler";
 import absoluteUrl from "next-absolute-url";
 import sendEmail from "../utils/sendEmail";
+import crypto from "crypto";
 
 //set up cloudinary config
 cloudinary.config({
@@ -136,9 +137,47 @@ const forgotUserPassword = tryCatchAsyncErrors(async (req, res, next) => {
   }
 });
 
+//reset password (/api/password/reset/:token)
+const resetUserPassword = tryCatchAsyncErrors(async (req, res, next) => {
+  if (req.body.password !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Passwords don't match ", 400));
+  }
+
+  //hash url token
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.query.token)
+    .digest("hex");
+
+  //$gt => greater than
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new ErrorHandler("Password reset token is invalid", 400));
+  }
+
+  //setup the new password
+  user.password = req.body.password;
+
+  //reset tokens
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Passwor is updated successfully",
+  });
+});
+
 export {
   registerUser,
   currentUserProfile,
   updateUserProfile,
   forgotUserPassword,
+  resetUserPassword,
 };
