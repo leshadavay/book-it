@@ -5,8 +5,8 @@ import ButtonLoader from "../Common/ButtonLoader";
 import Link from "next/link";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); //admin@gmail.com
+  const [password, setPassword] = useState(""); //123
   const [loading, setLoading] = useState(false);
 
   //submit login

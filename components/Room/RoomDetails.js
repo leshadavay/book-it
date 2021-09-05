@@ -1,18 +1,82 @@
 import Head from "next/head";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/dist/client/router";
 import { Carousel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors } from "../../redux/actions/roomActions";
 
 import RoomFeatures from "./RoomFeatures";
+import DatePicker from "react-datepicker";
+import axios from "axios";
+import "react-datepicker/dist/react-datepicker.css";
+import { checkBooking } from "../../redux/actions/bookingActions";
 
 function RoomDetails() {
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     room: { room },
     error,
   } = useSelector((state) => state.roomDetails);
+  const { available, loading } = useSelector((state) => state.checkBooking);
+  const { user } = useSelector((state) => state.loadedUser);
+
+  const [checkInDate, setCheckIndate] = useState();
+  const [checkOutDate, setCheckOutDate] = useState();
+  const [daysOfStay, setDaysOfStay] = useState();
+
+  const { id: roomId } = router.query;
+
+  const onChangeDatePicker = (dates) => {
+    const [checkInDate, checkOutDate] = dates;
+    setCheckIndate(checkInDate);
+    setCheckOutDate(checkOutDate);
+
+    if (checkInDate && checkOutDate) {
+      //calculate days of stay (total day - 1)
+      const days = Math.floor(
+        (new Date(checkOutDate) - new Date(checkInDate)) / 86400000 + 1
+      );
+      setDaysOfStay(days);
+
+      dispatch(
+        checkBooking(
+          roomId,
+          checkInDate.toISOString(),
+          checkOutDate.toISOString()
+        )
+      );
+
+      console.log(checkInDate.toISOString(), checkOutDate.toISOString());
+    }
+  };
+
+  const onClickPay = async () => {
+    const bookingData = {
+      room: router.query.id,
+      checkInDate,
+      checkOutDate,
+      daysOfStay,
+      amountPaid: 90,
+      paymentInfo: {
+        id: "STRIPE_PAYMENT_ID",
+        status: "STRIPE_PAYMENT_STATUS",
+      },
+    };
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post("/api/booking", bookingData, config);
+      console.log("data: ", data);
+    } catch (error) {
+      console.log("error : ", error.response);
+    }
+  };
 
   useEffect(() => {
     if (error) {
@@ -69,7 +133,44 @@ function RoomDetails() {
                 <b>${room.pricePerNight}</b> / night
               </p>
 
-              <button className="btn btn-block py-3 booking-btn">Pay</button>
+              <hr />
+              <p className="mt-5 mb-3">Pick Check In & Check Out Date</p>
+              <DatePicker
+                className="w-100"
+                selected={checkInDate}
+                onChange={onChangeDatePicker}
+                startDate={checkInDate}
+                endDate={checkOutDate}
+                minDate={new Date()}
+                selectsRange
+                inline
+              />
+
+              {available === true && (
+                <div className="alert alert-success my-3 font-weight-bold">
+                  Room is available, Book now!
+                </div>
+              )}
+
+              {available === false && (
+                <div className="alert alert-danger my-3 font-weight-bold">
+                  Room is not available, Try with different dates!
+                </div>
+              )}
+
+              {available && user && (
+                <button
+                  className="btn btn-block py-3 booking-btn"
+                  onClick={onClickPay}
+                >
+                  Pay
+                </button>
+              )}
+              {available && !user && (
+                <div className="alert alert-danger my-3 font-weight-bold">
+                  Login to book room!
+                </div>
+              )}
             </div>
           </div>
         </div>

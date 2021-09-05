@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { checkBookingReducer } from "./bookingReducer";
 import { allRoomsReducer, roomDetailsReducer } from "./roomReducer";
 import {
   authReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   loadedUser: loadedUserReducer,
   forgotPassword: forgotPasswordReducer,
+  checkBooking: checkBookingReducer,
 });
 
 export default rootReducer;
