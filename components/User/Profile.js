@@ -25,7 +25,7 @@ function Profile() {
     "/images/default_avatar.png"
   );
 
-  const { user: authUser, loading } = useSelector((state) => state.auth);
+  const { user: authUser, loading } = useSelector((state) => state.loadedUser);
   const {
     error,
     isUpdated,

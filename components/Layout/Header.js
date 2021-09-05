@@ -1,15 +1,18 @@
 import { signOut } from "next-auth/client";
+import { useRouter } from "next/dist/client/router";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../redux/actions/userActions";
 
 function Header() {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const { user, loading } = useSelector((state) => state.auth);
+
+  const { user, loading } = useSelector((state) => state.loadedUser);
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch]);
+  }, [dispatch, router.query]);
 
   const logoutHandler = () => {
     signOut();

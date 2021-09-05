@@ -40,6 +40,23 @@ export const authReducer = (state = authInitialState, action) => {
         loading: false,
         error: action.payload,
       };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+//load user reducer
+export const loadedUserReducer = (
+  state = { loading: true, user: null },
+  action
+) => {
+  switch (action.type) {
     case LOAD_USER_REQUEST:
       return {
         loading: true,
