@@ -1,7 +1,8 @@
 import tryCatchAsyncErrors from "../middlewares/tryCatchAsyncErrors";
 import Booking from "../models/booking";
-
-import ErrorHandler from "../utils/errorHandler";
+import Moment from "moment";
+import { extendMoment } from "moment-range";
+const moment = extendMoment(Moment);
 
 //create new booking  =>  /api/auth/register
 const newBooking = tryCatchAsyncErrors(async (req, res) => {
@@ -22,6 +23,7 @@ const newBooking = tryCatchAsyncErrors(async (req, res) => {
     daysOfStay,
     amountPaid,
     paymentInfo,
+    paidAt: Date.now(),
   });
 
   console.log("req booking: ", booking);
@@ -68,4 +70,37 @@ const checkBookingAvailability = tryCatchAsyncErrors(async (req, res) => {
   });
 });
 
-export { newBooking, checkBookingAvailability };
+// get booked dates of a room =>  /api/bookings/dates
+const getBookedDatesOfRoom = tryCatchAsyncErrors(async (req, res) => {
+  const { roomId } = req.query;
+
+  const booking = await Booking.find({ room: roomId });
+
+  let bookedDates = [];
+
+  //calc 5 hour difference
+  const timeDifference = moment().utcOffset() / 60;
+
+  booking.forEach((booking) => {
+    const checkInDate = moment(booking.checkInDate).add(
+      timeDifference,
+      "hours"
+    );
+    const checkOutDate = moment(booking.checkOutDate).add(
+      timeDifference,
+      "hours"
+    );
+
+    const range = moment.range(moment(checkInDate), moment(checkOutDate));
+
+    const dates = Array.from(range.by("day"));
+    bookedDates = bookedDates.concat(dates);
+  });
+
+  res.status(200).json({
+    success: true,
+    bookedDates,
+  });
+});
+
+export { newBooking, checkBookingAvailability, getBookedDatesOfRoom };

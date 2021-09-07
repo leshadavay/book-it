@@ -10,7 +10,14 @@ import RoomFeatures from "./RoomFeatures";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
-import { checkBooking } from "../../redux/actions/bookingActions";
+import {
+  checkBooking,
+  createBooking,
+  getBookedDates,
+} from "../../redux/actions/bookingActions";
+import ButtonLoader from "../Common/ButtonLoader";
+import { toast } from "react-toastify";
+import { CREATE_BOOKING_RESET } from "../../redux/constants/bookingConstants";
 
 function RoomDetails() {
   const router = useRouter();
@@ -21,6 +28,16 @@ function RoomDetails() {
   } = useSelector((state) => state.roomDetails);
   const { available, loading } = useSelector((state) => state.checkBooking);
   const { user } = useSelector((state) => state.loadedUser);
+  const {
+    dates,
+    isCreated,
+    loading: createLoading,
+  } = useSelector((state) => state.bookedDates);
+
+  const excludedDates = [];
+  dates.forEach((date) => {
+    excludedDates.push(new Date(date));
+  });
 
   const [checkInDate, setCheckIndate] = useState();
   const [checkOutDate, setCheckOutDate] = useState();
@@ -53,37 +70,35 @@ function RoomDetails() {
   };
 
   const onClickPay = async () => {
-    const bookingData = {
-      room: router.query.id,
-      checkInDate,
-      checkOutDate,
-      daysOfStay,
-      amountPaid: 90,
-      paymentInfo: {
-        id: "STRIPE_PAYMENT_ID",
-        status: "STRIPE_PAYMENT_STATUS",
-      },
-    };
-
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
+    dispatch(
+      createBooking({
+        room: router.query.id,
+        checkInDate,
+        checkOutDate,
+        daysOfStay,
+        amountPaid: 90,
+        paymentInfo: {
+          id: "STRIPE_PAYMENT_ID",
+          status: "STRIPE_PAYMENT_STATUS",
         },
-      };
-      const { data } = await axios.post("/api/booking", bookingData, config);
-      console.log("data: ", data);
-    } catch (error) {
-      console.log("error : ", error.response);
-    }
+      })
+    );
   };
 
   useEffect(() => {
+    dispatch(getBookedDates(roomId));
+
+    if (isCreated) {
+      toast.success("Your booking has been updated successfully");
+      dispatch({
+        type: CREATE_BOOKING_RESET,
+      });
+    }
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
     }
-  }, []);
+  }, [dispatch, roomId, isCreated]);
   return (
     <>
       <Head>
@@ -142,6 +157,7 @@ function RoomDetails() {
                 startDate={checkInDate}
                 endDate={checkOutDate}
                 minDate={new Date()}
+                excludeDates={excludedDates}
                 selectsRange
                 inline
               />
@@ -162,8 +178,9 @@ function RoomDetails() {
                 <button
                   className="btn btn-block py-3 booking-btn"
                   onClick={onClickPay}
+                  disabled={createLoading ? true : false}
                 >
-                  Pay
+                  {createLoading ? <ButtonLoader /> : "Pay"}
                 </button>
               )}
               {available && !user && (
