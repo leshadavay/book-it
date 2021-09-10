@@ -14,26 +14,52 @@ import {
 
 const authInitialState = {
   available: null,
+  isCreated: false,
+  loading: false,
 };
 
 //check booking reducer
 export const checkBookingReducer = (state = authInitialState, action) => {
   switch (action.type) {
+    case CREATE_BOOKING_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
     case CHECK_BOOKING_REQUEST:
       return {
         loading: true,
       };
 
+    case CREATE_BOOKING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isCreated: action.payload,
+      };
     case CHECK_BOOKING_SUCCESS:
       return {
         loading: false,
         available: action.payload,
       };
-
+    case CREATE_BOOKING_FAIL:
+      return {
+        ...state,
+        loading: false,
+        isCreated: false,
+        error: action.payload,
+      };
     case CHECK_BOOKING_FAIL:
       return {
         loading: false,
         error: action.payload,
+      };
+    case CREATE_BOOKING_RESET:
+      return {
+        ...state,
+        loading: false,
+        available: null,
+        isCreated: false,
       };
     case CHECK_BOOKING_RESET:
       return {
@@ -52,41 +78,21 @@ export const checkBookingReducer = (state = authInitialState, action) => {
 };
 
 //get all booked dates
-export const bookedDatesReducer = (
-  state = { dates: [], isCreated: false },
-  action
-) => {
+export const bookedDatesReducer = (state = { dates: [] }, action) => {
   switch (action.type) {
-    case CREATE_BOOKING_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
     case BOOKED_DATES_SUCCESS:
       return {
         loading: false,
-        isCreated: false,
         dates: action.payload,
       };
-    case CREATE_BOOKING_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        isCreated: action.payload,
-      };
+
     case BOOKED_DATES_FAIL:
-    case CREATE_BOOKING_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
       };
-    case CREATE_BOOKING_RESET:
-      return {
-        ...state,
-        loading: false,
-        isCreated: false,
-      };
+
     case CLEAR_ERRORS:
       return {
         ...state,
