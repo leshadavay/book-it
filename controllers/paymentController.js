@@ -1,8 +1,9 @@
 import absoluteUrl from "next-absolute-url";
+import getRawBody from "raw-body";
 import tryCatchAsyncErrors from "../middlewares/tryCatchAsyncErrors";
 import Room from "../models/room";
 import User from "../models/user";
-import APIRequest from "../utils/APIRequest";
+import Booking from "../models/booking";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -20,7 +21,7 @@ const stripeCheckoutSession = tryCatchAsyncErrors(async (req, res, next) => {
   //create stripe checkout session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
-    success_url: `${origin}/booking/me`,
+    success_url: `${origin}/booking/list`,
     cancel_url: `${origin}/room/${room._id}`,
     customer_email: req.user.email,
     client_reference_id: req.query.roomId,
@@ -43,4 +44,56 @@ const stripeCheckoutSession = tryCatchAsyncErrors(async (req, res, next) => {
   res.status(200).json(session);
 });
 
-export { stripeCheckoutSession };
+//create new booking after payment  =>  /api/booking
+const webhookCheckout = tryCatchAsyncErrors(async (req, res) => {
+  //first check if payment is successfully done
+
+  const rawBody = await getRawBody(req);
+
+  try {
+    const signature = req.headers["stripe-signature"];
+
+    //pas raw req body (not supported in next js )
+    const event = stripe.webhooks.constructEvent(
+      rawBody,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+
+    if (event.type === "checkout.session.completed") {
+      const session = event.data.object;
+
+      const room = session.client_reference_id;
+      const user = await User.findOne({ email: session.customer_email });
+
+      const amountPaid = session.amount_total / 100;
+      const paymentInfo = {
+        id: session.payment_intent,
+        status: session.payment_status,
+      };
+
+      const { checkInDate, checkOutDate, daysOfStay } = session.metadata;
+
+      await Booking.create({
+        room,
+        user,
+        checkInDate,
+        checkOutDate,
+        daysOfStay,
+        amountPaid,
+        paymentInfo,
+        paidAt: Date.now(),
+      });
+
+      res.status(200).json({
+        success: true,
+      });
+    }
+  } catch (error) {
+    console.log("error in stripe checkout payment: ", error);
+  }
+
+  res.status(200).json(session);
+});
+
+export { stripeCheckoutSession, webhookCheckout };

@@ -4,7 +4,7 @@ import Moment from "moment";
 import { extendMoment } from "moment-range";
 const moment = extendMoment(Moment);
 
-//create new booking  =>  /api/auth/register
+//create new booking  =>  /api/booking
 const newBooking = tryCatchAsyncErrors(async (req, res) => {
   const {
     room,
@@ -103,4 +103,19 @@ const getBookedDatesOfRoom = tryCatchAsyncErrors(async (req, res) => {
   });
 });
 
-export { newBooking, checkBookingAvailability, getBookedDatesOfRoom };
+// get all bookings of current user => /api/booking/list
+const getMyBookings = tryCatchAsyncErrors(async (req, res) => {
+  const bookings = await Booking.find({ user: req.user._id });
+
+  res.status(200).json({
+    success: true,
+    bookings,
+  });
+});
+
+export {
+  newBooking,
+  checkBookingAvailability,
+  getBookedDatesOfRoom,
+  getMyBookings,
+};

@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   checkBooking,
   createBooking,
+  makeBookingPayment,
   getBookedDates,
 } from "../../redux/actions/bookingActions";
 import ButtonLoader from "../Common/ButtonLoader";
@@ -35,6 +36,7 @@ function RoomDetails() {
     available,
     loading: createLoading,
     isCreated,
+    sessionId,
   } = useSelector((state) => state.checkBooking);
   const { user } = useSelector((state) => state.loadedUser);
   const { dates } = useSelector((state) => state.bookedDates);
@@ -46,16 +48,15 @@ function RoomDetails() {
 
   console.log("excludedDates: ", excludedDates);
 
-  const [checkInDate, setCheckIndate] = useState();
+  const [checkInDate, setCheckInDate] = useState();
   const [checkOutDate, setCheckOutDate] = useState();
   const [daysOfStay, setDaysOfStay] = useState();
-  const [paymentLoading, setPaymentLoading] = useState(false);
 
   const { id: roomId } = router.query;
 
   const onChangeDatePicker = (dates) => {
     const [checkInDate, checkOutDate] = dates;
-    setCheckIndate(checkInDate);
+    setCheckInDate(checkInDate);
     setCheckOutDate(checkOutDate);
 
     if (checkInDate && checkOutDate) {
@@ -79,7 +80,15 @@ function RoomDetails() {
 
   const onClickPay = async () => {
     dispatch(
-      createBooking({
+      makeBookingPayment({
+        room,
+        checkInDate,
+        checkOutDate,
+        daysOfStay,
+      })
+    );
+
+    /* createBooking({
         room: router.query.id,
         checkInDate,
         checkOutDate,
@@ -89,17 +98,17 @@ function RoomDetails() {
           id: "STRIPE_PAYMENT_ID",
           status: "STRIPE_PAYMENT_STATUS",
         },
-      })
-    );
+      }) */
   };
 
-  const bookRoom = async (id, pricePerNight) => {
-    setPaymentLoading(true);
+  //make payment and create new booking
+  const bookRoom = async (e) => {
+    const { pricePerNight, daysOfStay, _id } = room;
 
     const amount = pricePerNight * daysOfStay;
 
     try {
-      const link = `/api/checkout/${id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`;
+      const link = `/api/checkout/${_id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`;
 
       const { data } = await axios.get(link, { params: { amount } });
 
@@ -109,26 +118,34 @@ function RoomDetails() {
       stripe.redirectToCheckout({
         sessionId: data.id,
       });
-
-      setPaymentLoading(false);
     } catch (error) {
-      setPaymentLoading(false);
       console.log(error);
       toast.error(error.message);
+    }
+  };
+
+  const connectStripe = async () => {
+    if (isCreated && sessionId) {
+      //toast.success("Your booking has been created successfully");
+      const stripe = await getStripe();
+
+      stripe.redirectToCheckout({
+        sessionId,
+      });
+
+      dispatch({
+        type: CREATE_BOOKING_RESET,
+      });
+      setCheckInDate();
+      setCheckOutDate();
     }
   };
 
   useEffect(() => {
     dispatch(getBookedDates(roomId));
 
-    if (isCreated) {
-      toast.success("Your booking has been created successfully");
-      dispatch({
-        type: CREATE_BOOKING_RESET,
-      });
-      setCheckIndate();
-      setCheckOutdate();
-    }
+    connectStripe();
+
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
@@ -218,8 +235,8 @@ function RoomDetails() {
               {available && user && (
                 <button
                   className="btn btn-block py-3 booking-btn"
-                  onClick={() => bookRoom(room._id, room.pricePerNight)}
-                  disabled={createLoading || paymentLoading ? true : false}
+                  onClick={onClickPay}
+                  disabled={createLoading ? true : false}
                 >
                   {createLoading ? (
                     <ButtonLoader />

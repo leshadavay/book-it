@@ -59,7 +59,7 @@ function Header() {
                 <Link href="/user/me">
                   <a className="dropdown-item">My Profile</a>
                 </Link>
-                <Link href="/bookings/me">
+                <Link href="/bookings/list">
                   <a className="dropdown-item">My Bookings</a>
                 </Link>
                 <Link href="/">

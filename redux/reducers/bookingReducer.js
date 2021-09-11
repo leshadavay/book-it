@@ -10,11 +10,14 @@ import {
   CREATE_BOOKING_FAIL,
   CLEAR_ERRORS,
   CREATE_BOOKING_RESET,
+  MY_BOOKINGS_SUCCESS,
+  MY_BOOKINGS_FAIL,
 } from "../constants/bookingConstants";
 
 const authInitialState = {
   available: null,
   isCreated: false,
+  sessionId: null,
   loading: false,
 };
 
@@ -35,7 +38,7 @@ export const checkBookingReducer = (state = authInitialState, action) => {
       return {
         ...state,
         loading: false,
-        isCreated: action.payload,
+        ...action.payload,
       };
     case CHECK_BOOKING_SUCCESS:
       return {
@@ -47,6 +50,7 @@ export const checkBookingReducer = (state = authInitialState, action) => {
         ...state,
         loading: false,
         isCreated: false,
+        sessionId: null,
         error: action.payload,
       };
     case CHECK_BOOKING_FAIL:
@@ -59,6 +63,7 @@ export const checkBookingReducer = (state = authInitialState, action) => {
         ...state,
         loading: false,
         available: null,
+        sessionId: null,
         isCreated: false,
       };
     case CHECK_BOOKING_RESET:
@@ -89,6 +94,31 @@ export const bookedDatesReducer = (state = { dates: [] }, action) => {
     case BOOKED_DATES_FAIL:
       return {
         ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+//get all my bookings
+export const bookingListReducer = (state = { bookings: [] }, action) => {
+  switch (action.type) {
+    case MY_BOOKINGS_SUCCESS:
+      return {
+        loading: false,
+        bookings: action.payload,
+      };
+
+    case MY_BOOKINGS_FAIL:
+      return {
         loading: false,
         error: action.payload,
       };

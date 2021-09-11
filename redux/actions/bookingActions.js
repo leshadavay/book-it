@@ -9,7 +9,10 @@ import {
   CREATE_BOOKING_FAIL,
   CREATE_BOOKING_REQUEST,
   CREATE_BOOKING_SUCCESS,
+  MY_BOOKINGS_FAIL,
+  MY_BOOKINGS_SUCCESS,
 } from "../constants/bookingConstants";
+import absoluteUrl from "next-absolute-url";
 
 //check booking
 export const checkBooking =
@@ -35,6 +38,42 @@ export const checkBooking =
     }
   };
 
+//on click pay button
+export const makeBookingPayment = (bookingData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CREATE_BOOKING_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const {
+      room: { pricePerNight, _id },
+      checkInDate,
+      checkOutDate,
+      daysOfStay,
+    } = bookingData;
+    const amount = pricePerNight * daysOfStay;
+
+    const link = `/api/checkout/${_id}?checkInDate=${checkInDate.toISOString()}&checkOutDate=${checkOutDate.toISOString()}&daysOfStay=${daysOfStay}`;
+
+    const { data } = await axios.get(link, { params: { amount } });
+
+    dispatch({
+      type: CREATE_BOOKING_SUCCESS,
+      payload: { sessionId: data.id, isCreated: true },
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATE_BOOKING_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 export const createBooking = (bookingData) => async (dispatch) => {
   try {
     dispatch({
@@ -56,6 +95,32 @@ export const createBooking = (bookingData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CREATE_BOOKING_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//get my bookings list
+export const getMyBookings = (req) => async (dispatch) => {
+  try {
+    //appending cookie is essential when getServerProps is being used
+    const { cookie } = req.headers;
+    const { origin } = absoluteUrl(req);
+    const config = {
+      headers: {
+        cookie,
+      },
+    };
+
+    const { data } = await axios.get(`${origin}/api/booking/list`, config);
+
+    dispatch({
+      type: MY_BOOKINGS_SUCCESS,
+      payload: data.bookings,
+    });
+  } catch (error) {
+    dispatch({
+      type: MY_BOOKINGS_FAIL,
       payload: error.response.data.message,
     });
   }
