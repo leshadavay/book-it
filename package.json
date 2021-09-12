@@ -15,6 +15,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.26.3",
     "dotenv": "^10.0.0",
+    "easyinvoice": "^1.0.147",
     "mdbreact": "^5.1.0",
     "moment": "^2.29.1",
     "moment-range": "^4.0.2",

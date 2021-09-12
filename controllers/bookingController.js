@@ -105,11 +105,40 @@ const getBookedDatesOfRoom = tryCatchAsyncErrors(async (req, res) => {
 
 // get all bookings of current user => /api/booking/list
 const getMyBookings = tryCatchAsyncErrors(async (req, res) => {
-  const bookings = await Booking.find({ user: req.user._id });
+  const bookings = await Booking.find({ user: req.user._id })
+    .populate({
+      path: "room",
+      select: "name pricePerNight images",
+    })
+    .populate({
+      path: "user",
+      select: "name email",
+    })
+    .sort({ createdAt: -1 });
 
   res.status(200).json({
     success: true,
     bookings,
+  });
+});
+
+// get single bookings   => /api/booking/:id
+const getBookingDetails = tryCatchAsyncErrors(async (req, res) => {
+  const booking = await Booking.findById(req.query.id)
+    .populate({
+      path: "room",
+      select: "name pricePerNight images",
+    })
+    .populate({
+      path: "user",
+      select: "name email",
+    });
+
+  //populate is like join with other table
+
+  res.status(200).json({
+    success: true,
+    booking,
   });
 });
 
@@ -118,4 +147,5 @@ export {
   checkBookingAvailability,
   getBookedDatesOfRoom,
   getMyBookings,
+  getBookingDetails,
 };

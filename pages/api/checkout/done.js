@@ -16,8 +16,6 @@ export const config = {
   },
 };
 
-console.log("api enter");
-
 handler.post(webhookCheckout);
 
 export default handler;
