@@ -1,5 +1,6 @@
 import tryCatchAsyncErrors from "../middlewares/tryCatchAsyncErrors";
 import Room from "../models/room";
+import Booking from "../models/booking";
 import APIRequest from "../utils/APIRequest";
 import { checkObjectId, errorReport, successReport } from "../utils/common";
 import ErrorHandler from "../utils/errorHandler";
@@ -95,10 +96,70 @@ const deleteRoomDetails = tryCatchAsyncErrors(async (req, res) => {
     message: "room has been successfully removed",
   });
 });
+
+//create a new review =>  /api/reviews
+const createRoomReview = tryCatchAsyncErrors(async (req, res) => {
+  const { rating, comment, roomId } = req.body;
+
+  const review = {
+    user: req.user._id,
+    name: req.user.name,
+    rating: Number(rating),
+    comment,
+  };
+
+  const room = await Room.findById(roomId);
+  const isReviewed = room.reviews.find(
+    (r) => r.user.toString() === req.user._id.toString()
+  );
+
+  //update previous review if user has reviewed
+  if (isReviewed) {
+    room.reviews.forEach((review) => {
+      if (review.user.toString() === req.user._id.toString()) {
+        review.comment = comment;
+        review.rating = rating;
+      }
+    });
+  } else {
+    room.reviews.push(review);
+    room.numOfReviews = room.reviews.length;
+  }
+
+  room.rating =
+    room.reviews.reduce((acc, item) => item.rating + acc, 0) /
+    room.reviews.length;
+
+  await room.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+//Check if review availabilty   =>  /api/reviews/check
+const checkReviewAvailability = tryCatchAsyncErrors(async (req, res) => {
+  const { roomId } = req.query;
+
+  const bookings = await Booking.find({ user: req.user._id, room: roomId });
+
+  let reviewAvailable = false;
+
+  if (bookings.length) {
+    reviewAvailable = true;
+  }
+
+  res.status(200).json({
+    reviewAvailable,
+  });
+});
+
 export {
   allRooms,
   newRoom,
   getRoomDetails,
   deleteRoomDetails,
   updateRoomDetails,
+  createRoomReview,
+  checkReviewAvailability,
 };

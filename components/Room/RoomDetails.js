@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import { Carousel } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors } from "../../redux/actions/roomActions";
+import { clearErrors, newReview } from "../../redux/actions/roomActions";
 
 import RoomFeatures from "./RoomFeatures";
 import DatePicker from "react-datepicker";
@@ -24,6 +24,8 @@ import {
 } from "../../redux/constants/bookingConstants";
 import axios from "axios";
 import getStripe from "../../utils/getStripe";
+import NewReview from "../Review/NewReview";
+import ReviewsList from "../Review/ReviewsList";
 
 function RoomDetails() {
   const router = useRouter();
@@ -45,8 +47,6 @@ function RoomDetails() {
   dates.forEach((date) => {
     excludedDates.push(new Date(date));
   });
-
-  console.log("excludedDates: ", excludedDates);
 
   const [checkInDate, setCheckInDate] = useState();
   const [checkOutDate, setCheckOutDate] = useState();
@@ -73,8 +73,6 @@ function RoomDetails() {
           checkOutDate.toISOString()
         )
       );
-
-      console.log(checkInDate.toISOString(), checkOutDate.toISOString());
     }
   };
 
@@ -141,6 +139,12 @@ function RoomDetails() {
     }
   };
 
+  const submitReviewHandler = async (reviewData) => {
+    const { rating, comment } = reviewData;
+
+    dispatch(newReview({ rating, comment, roomId }));
+  };
+
   useEffect(() => {
     dispatch(getBookedDates(roomId));
 
@@ -170,7 +174,7 @@ function RoomDetails() {
           <div className="rating-outer">
             <div
               className="rating-inner"
-              style={{ width: `${(room.ratings / 5) * 100}%` }}
+              style={{ width: `${(room.rating / 5) * 100}%` }}
             ></div>
           </div>
           <span id="no_of_reviews">({room.numOfReviews} Reviews)</span>
@@ -253,30 +257,14 @@ function RoomDetails() {
             </div>
           </div>
         </div>
-
-        <div className="reviews w-75">
-          <h3>Reviews:</h3>
-          <hr />
-          <div className="review-card my-3">
-            <div className="rating-outer">
-              <div className="rating-inner"></div>
-            </div>
-            <p className="review_user">by John</p>
-            <p className="review_comment">Good Quality</p>
-
-            <hr />
-          </div>
-
-          <div className="review-card my-3">
-            <div className="rating-outer">
-              <div className="rating-inner"></div>
-            </div>
-            <p className="review_user">by John</p>
-            <p className="review_comment">Good Quality</p>
-
-            <hr />
-          </div>
-        </div>
+        <NewReview submitReviewHandler={submitReviewHandler} />
+        {room.reviews && room.reviews.length ? (
+          <ReviewsList reviews={room.reviews} />
+        ) : (
+          <p>
+            <b>No Reviews</b>
+          </p>
+        )}
       </div>
     </>
   );
