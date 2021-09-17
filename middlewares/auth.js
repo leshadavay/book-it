@@ -2,6 +2,7 @@ import { getSession } from "next-auth/client";
 import ErrorHandler from "../utils/errorHandler";
 import tryCatchAsyncErrors from "./tryCatchAsyncErrors";
 
+//check if user has logged in
 const isAuthenticatedUser = tryCatchAsyncErrors(async (req, res, next) => {
   const session = await getSession({ req });
 
@@ -12,4 +13,14 @@ const isAuthenticatedUser = tryCatchAsyncErrors(async (req, res, next) => {
   next();
 });
 
-export { isAuthenticatedUser };
+//handle user roles (admin/user)
+const authorizeRoles = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(new ErrorHandler(`Access forbidden`, 403));
+    }
+    next();
+  };
+};
+
+export { isAuthenticatedUser, authorizeRoles };

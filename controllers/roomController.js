@@ -1,9 +1,10 @@
 import tryCatchAsyncErrors from "../middlewares/tryCatchAsyncErrors";
 import Room from "../models/room";
 import Booking from "../models/booking";
+import cloudinary from "cloudinary";
 import APIRequest from "../utils/APIRequest";
-import { checkObjectId, errorReport, successReport } from "../utils/common";
 import ErrorHandler from "../utils/errorHandler";
+import { checkObjectId, errorReport, successReport } from "../utils/common";
 
 const allRooms = tryCatchAsyncErrors(async (req, res, next) => {
   const perPage = 4;
@@ -154,6 +155,44 @@ const checkReviewAvailability = tryCatchAsyncErrors(async (req, res) => {
   });
 });
 
+/** admin  */
+
+//get all rooms  =>  /api/admin/rooms
+const getAllRoomsAdmin = tryCatchAsyncErrors(async (req, res) => {
+  const rooms = await Room.find().sort({ createdAt: -1 });
+
+  res.status(200).json({
+    rooms,
+  });
+});
+
+//create new room => /api/rooms
+
+const createRoomAdmin = tryCatchAsyncErrors(async (req, res) => {
+  const images = req.body.images;
+  let imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const cloudinaryUpload = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "fakebook/rooms",
+      width: "150",
+      crop: "scale",
+    });
+    imagesLinks.push({
+      public_id: cloudinaryUpload.public_id,
+      url: cloudinaryUpload.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
+  req.body.user = req.user._id;
+
+  const room = await Room.create(req.body);
+  successReport(res, {
+    room,
+  });
+});
+
 export {
   allRooms,
   newRoom,
@@ -162,4 +201,6 @@ export {
   updateRoomDetails,
   createRoomReview,
   checkReviewAvailability,
+  getAllRoomsAdmin,
+  createRoomAdmin,
 };

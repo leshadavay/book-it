@@ -4,6 +4,8 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../../redux/actions/userActions";
+import classnames from "classnames";
+import Loader from "../Common/Loader";
 
 function Header() {
   const router = useRouter();
@@ -18,8 +20,15 @@ function Header() {
     signOut();
   };
 
+  let adminBgStyle = user && user.role === "admin" ? "bg-dark" : "";
+  let adminTextStyle = user && user.role === "admin" ? "text-light" : "";
   return (
-    <nav className="navbar row justify-content-center sticky-top">
+    <nav
+      className={classnames(
+        "navbar row justify-content-center sticky-top",
+        adminBgStyle
+      )}
+    >
       <div className="container">
         <div className="col-3 p-0">
           <div className="navbar-brand">
@@ -37,7 +46,10 @@ function Header() {
           {user ? (
             <div className="ml-4 dropdow d-line">
               <a
-                className="btn dropdown-toggle mr-4"
+                className={classnames(
+                  "btn dropdown-toggle mr-4",
+                  adminTextStyle
+                )}
                 id="dropDownMenuButton"
                 data-toggle="dropdown"
                 aria-haspopup="true"
@@ -53,14 +65,30 @@ function Header() {
                 <span>{user && user.name}</span>
               </a>
               <div
-                className="dropdown-menu"
+                className={classnames("dropdown-menu", adminBgStyle)}
                 aria-labelledby="dropDownMenuButton"
               >
+                {user.role === "admin" && (
+                  <>
+                    <Link href="/admin/rooms">
+                      <a
+                        className={classnames("dropdown-item", adminTextStyle)}
+                      >
+                        All Rooms
+                      </a>
+                    </Link>
+                    <hr />
+                  </>
+                )}
                 <Link href="/user/me">
-                  <a className="dropdown-item">My Profile</a>
+                  <a className={classnames("dropdown-item", adminTextStyle)}>
+                    My Profile
+                  </a>
                 </Link>
                 <Link href="/booking/list">
-                  <a className="dropdown-item">My Bookings</a>
+                  <a className={classnames("dropdown-item", adminTextStyle)}>
+                    My Bookings
+                  </a>
                 </Link>
                 <Link href="/">
                   <a
