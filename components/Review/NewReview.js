@@ -87,7 +87,7 @@ function NewReview({ submitReviewHandler }) {
         <div
           className="modal fade"
           id="ratingModal"
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
           aria-labelledby="ratingModalLabel"
           aria-hidden="true"
@@ -107,7 +107,7 @@ function NewReview({ submitReviewHandler }) {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body">
+              <div className="modal-body form-group">
                 <ul className="stars">
                   <li className="star">
                     <i className="fa fa-star"></i>
@@ -132,9 +132,7 @@ function NewReview({ submitReviewHandler }) {
                   className="form-control mt-3"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                >
-                  {" "}
-                </textarea>
+                ></textarea>
 
                 <button
                   className="btn my-3 float-right review-btn px-4 text-white"

@@ -1,12 +1,12 @@
 import { getSession } from "next-auth/client";
 import React from "react";
-import AllRooms from "../../../components/Admin/AllRooms";
+import AllUsers from "../../../components/Admin/AllUsers";
 import Layout from "../../../components/Layout/Layout";
 
 export default function Index() {
   return (
     <Layout title="All Rooms">
-      <AllRooms />
+      <AllUsers />
     </Layout>
   );
 }

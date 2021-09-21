@@ -19,6 +19,19 @@ import {
   NEW_ROOM_REQUEST,
   NEW_ROOM_SUCCESS,
   NEW_ROOM_FAIL,
+  UPDATE_ROOM_REQUEST,
+  UPDATE_ROOM_SUCCESS,
+  UPDATE_ROOM_FAIL,
+  DELETE_ROOM_SUCCESS,
+  DELETE_ROOM_REQUEST,
+  DELETE_ROOM_FAIL,
+  GET_REVIEWS_REQUEST,
+  GET_REVIEWS_SUCCESS,
+  GET_REVIEWS_FAIL,
+  DELETE_REVIEW_REQUEST,
+  DELETE_REVIEW_SUCCESS,
+  DELETE_REVIEW_FAIL,
+  ALL_ROOMS_REQUEST,
 } from "../constants/roomConstants";
 
 const config = {
@@ -29,6 +42,9 @@ const config = {
 
 export const getRooms = (req, query) => async (dispatch) => {
   try {
+    dispatch({
+      type: ALL_ROOMS_REQUEST,
+    });
     const { origin } = absoluteUrl(req);
     const { page = 1, location = "", guests = "", category = "" } = query;
     let url = `${origin}/api/rooms?page=${page}&location=${location}`;
@@ -53,13 +69,16 @@ export const getRooms = (req, query) => async (dispatch) => {
   }
 };
 
+//ssr
 export const getRoomDetails = (req, id) => async (dispatch) => {
   try {
+    //get origin since its using ssr
     const { origin } = absoluteUrl(req);
     const { data } = await axios.get(`${origin}/api/rooms/${id}`);
+
     dispatch({
       type: ROOM_DETAILS_SUCCESS,
-      payload: data,
+      payload: data.room,
     });
   } catch (error) {
     dispatch({
@@ -157,6 +176,98 @@ export const createRoomAdmin = (roomData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: NEW_ROOM_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const updateRoomAdmin = (id, roomData) => async (dispatch) => {
+  try {
+    //use dispatch here since its not SSR
+    dispatch({
+      type: UPDATE_ROOM_REQUEST,
+    });
+
+    const { data } = await axios.put(
+      `/api/admin/rooms/${id}`,
+      roomData,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_ROOM_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_ROOM_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//delete room
+export const deleteRoomAdmin = (id) => async (dispatch) => {
+  try {
+    //use dispatch here since its not SSR
+    dispatch({
+      type: DELETE_ROOM_REQUEST,
+    });
+
+    const { data } = await axios.delete(`/api/admin/rooms/${id}`);
+
+    dispatch({
+      type: DELETE_ROOM_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_ROOM_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//get review
+export const getRoomReviewsAdmin = (id) => async (dispatch) => {
+  try {
+    //use dispatch here since its not SSR
+    dispatch({
+      type: GET_REVIEWS_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/admin/reviews/?roomId=${id}`);
+
+    dispatch({
+      type: GET_REVIEWS_SUCCESS,
+      payload: data.reviews,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_REVIEWS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//delete review
+export const deleteReviewAdmin = (id, roomId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: DELETE_REVIEW_REQUEST,
+    });
+
+    const { data } = await axios.delete(
+      `/api/admin/reviews/?id=${id}&roomId=${roomId}`
+    );
+
+    dispatch({
+      type: DELETE_REVIEW_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_REVIEW_FAIL,
       payload: error.response.data.message,
     });
   }

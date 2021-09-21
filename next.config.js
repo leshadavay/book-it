@@ -2,6 +2,8 @@ module.exports = {
   reactStrictMode: true,
   env: {
     DB_LOCAL_URI: "mongodb://localhost:27017/room_booking",
+    DB_URI:
+      "mongodb+srv://admin:<Cloudmongodb4$>@cluster0.7ceub.mongodb.net/fakebook?retryWrites=true&w=majority",
 
     STRIPE_API_KEY:
       "pk_test_51JY8UnDasotYSPMe2u9T5ucUInOzYXHGjxJS8yjGMAau3DHroXwE5mPhbfudO6vQDxj93WXIQWMfnntlLfbHrPNt00ZKTA96jC",

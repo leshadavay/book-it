@@ -20,7 +20,7 @@ function Header() {
     signOut();
   };
 
-  let adminBgStyle = user && user.role === "admin" ? "bg-dark" : "";
+  let adminBgStyle = user && user.role === "admin" ? "bg-black" : "bg-black";
   let adminTextStyle = user && user.role === "admin" ? "text-light" : "";
   return (
     <nav
@@ -34,8 +34,13 @@ function Header() {
           <div className="navbar-brand">
             <Link href="/">
               <img
-                style={{ cursor: "pointer" }}
-                src="/images/bookit_logo.png"
+                style={{
+                  cursor: "pointer",
+                  position: "absolute",
+                  width: "150px",
+                  top: "-20px",
+                }}
+                src="/images/fakebook.png"
                 alt="BookIT"
               />
             </Link>
@@ -77,6 +82,27 @@ function Header() {
                         All Rooms
                       </a>
                     </Link>
+                    <Link href="/admin/bookings">
+                      <a
+                        className={classnames("dropdown-item", adminTextStyle)}
+                      >
+                        All Bookings
+                      </a>
+                    </Link>
+                    <Link href="/admin/users">
+                      <a
+                        className={classnames("dropdown-item", adminTextStyle)}
+                      >
+                        All Users
+                      </a>
+                    </Link>
+                    <Link href="/admin/reviews">
+                      <a
+                        className={classnames("dropdown-item", adminTextStyle)}
+                      >
+                        All Reviews
+                      </a>
+                    </Link>
                     <hr />
                   </>
                 )}
@@ -103,7 +129,7 @@ function Header() {
           ) : (
             !loading && (
               <Link href="/login">
-                <a className="btn btn-danger px-4 text-white login-header-btn float-right">
+                <a className="btn btn-info px-4 text-white  float-right">
                   Login
                 </a>
               </Link>

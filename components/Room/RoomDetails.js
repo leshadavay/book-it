@@ -30,10 +30,7 @@ import ReviewsList from "../Review/ReviewsList";
 function RoomDetails() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const {
-    room: { room },
-    error,
-  } = useSelector((state) => state.roomDetails);
+  const { room, error } = useSelector((state) => state.roomDetails);
   const {
     available,
     loading: createLoading,

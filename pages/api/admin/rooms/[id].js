@@ -1,8 +1,7 @@
 import nc from "next-connect";
 import mongoDBConnect from "../../../../config/db";
 import {
-  createRoomAdmin,
-  getAllRoomsAdmin,
+  deleteRoomAdmin,
   updateRoomAdmin,
 } from "../../../../controllers/roomController";
 import onError from "../../../../middlewares/onError";
@@ -15,7 +14,9 @@ const handler = nc({ onError });
 
 mongoDBConnect();
 
-handler.use(isAuthenticatedUser, authorizeRoles("admin")).get(getAllRoomsAdmin);
-handler.use(isAuthenticatedUser, authorizeRoles("admin")).post(createRoomAdmin);
+handler.use(isAuthenticatedUser, authorizeRoles("admin")).put(updateRoomAdmin);
+handler
+  .use(isAuthenticatedUser, authorizeRoles("admin"))
+  .delete(deleteRoomAdmin);
 
 export default handler;

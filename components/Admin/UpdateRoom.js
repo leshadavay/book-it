@@ -2,33 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import {
-  clearErrors,
-  createRoomAdmin,
-  getAdminRooms,
-} from "../../redux/actions/roomActions";
+import { clearErrors, updateRoomAdmin } from "../../redux/actions/roomActions";
 
 import Loader from "../Common/Loader";
 import Link from "next/link";
 import { useImmer } from "use-immer";
-import { NEW_ROOM_RESET } from "../../redux/constants/roomConstants";
+import { UPDATE_ROOM_RESET } from "../../redux/constants/roomConstants";
 import { Form } from "react-bootstrap";
 import ButtonLoader from "../Common/ButtonLoader";
 
-function CreateRoom() {
+const UpdateRoomPage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { loading, success, error } = useSelector((state) => state.newRoom);
+  const { loading, isUpdated, error } = useSelector((state) => state.room);
+  const {
+    loading: roomDetailsLoading,
+    error: roomDetailsError,
+    room,
+  } = useSelector((state) => state.roomDetails);
 
   const [form, setForm] = useImmer({
     category: "King",
     guestCapacity: 1,
     numOfBeds: 1,
-    numOfBeds: 1,
   });
 
   const [images, setImages] = useState([]);
+  const [prevImages, setPrevImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
 
   const onChangeInputHandler = (e) => {
@@ -41,8 +42,8 @@ function CreateRoom() {
   };
 
   const onChangeCheckboxHandler = (e) => {
-    const { checked, name, value } = e.target;
-
+    e.preventDefault();
+    const { checked, name } = e.target;
     setForm((draft) => {
       draft[name] = checked;
     });
@@ -56,6 +57,7 @@ function CreateRoom() {
 
     //first erase previous images
     setImages([]);
+    setPrevImages([]);
     setImagesPreview([]);
 
     //second, store all images selected by user
@@ -81,7 +83,7 @@ function CreateRoom() {
     }
 
     dispatch(
-      createRoomAdmin({
+      updateRoomAdmin(room._id, {
         ...form,
         images,
       })
@@ -89,32 +91,48 @@ function CreateRoom() {
   };
 
   useEffect(() => {
-    dispatch(getAdminRooms());
+    if (room) {
+      room &&
+        Object.keys(room).map((key) => {
+          if (key === "images") {
+            setPrevImages(room[key]);
+          } else {
+            setForm((draft) => {
+              draft[key] = room[key];
+            });
+          }
+        });
+    }
+
+    if (roomDetailsError) {
+      toast.error(roomDetailsError);
+      dispatch(clearErrors());
+    }
+
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
     }
-    if (success) {
-      toast.success("New room has been created");
+    if (isUpdated) {
+      setPrevImages([]);
+      toast.success("Rroom has been updated");
       router.push("/admin/rooms");
-      dispatch({ type: NEW_ROOM_RESET });
+      dispatch({ type: UPDATE_ROOM_RESET });
     }
-  }, [dispatch, success, error]);
+  }, [dispatch, isUpdated, room, roomDetailsError, error]);
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <div className="container container-fluid">
       <div className="row wrapper">
         <div className="col-10 col-lg-8">
           <form
             className="shadow-lg"
-            encType="multipart/form-data"
+            enctype="multipart/form-data"
             onSubmit={onSubmitHandler}
           >
             <h1 className="mb-4">New Room</h1>
             <div className="form-group">
-              <label htmlFor="name_field">Name</label>
+              <label htmlhtmlFor="name_field">Name</label>
               <input
                 type="text"
                 id="name_field"
@@ -131,7 +149,7 @@ function CreateRoom() {
                 type="text"
                 id="price_field"
                 className="form-control"
-                value={form.price}
+                value={form.pricePerNight}
                 name="pricePerNight"
                 onChange={onChangeInputHandler}
                 required
@@ -217,7 +235,7 @@ function CreateRoom() {
                 id="internet_checkbox"
                 name="internet"
                 checked={form.internet}
-                key={"internet_checkbox"}
+                value={form.internet}
                 onChange={onChangeCheckboxHandler}
               />
               <label className="form-check-label" htmlFor="internet_checkbox">
@@ -228,9 +246,9 @@ function CreateRoom() {
               <input
                 className="form-check-input"
                 type="checkbox"
-                key={"breakfast_checkbox"}
                 id="breakfast_checkbox"
-                checked={form.breakfast === true}
+                checked={form.breakfast}
+                value={form.breakfast}
                 name="breakfast"
                 onChange={onChangeCheckboxHandler}
               />
@@ -244,6 +262,7 @@ function CreateRoom() {
                 type="checkbox"
                 id="airConditioned_checkbox"
                 checked={form.airConditioned}
+                value={form.airConditioned}
                 name="airConditioned"
                 onChange={onChangeCheckboxHandler}
               />
@@ -261,6 +280,7 @@ function CreateRoom() {
                 id="petsAllowed_checkbox"
                 name="petsAllowed"
                 checked={form.petsAllowed}
+                value={form.petsAllowed}
                 onChange={onChangeCheckboxHandler}
               />
               <label
@@ -277,6 +297,7 @@ function CreateRoom() {
                 id="roomCleaning_checkbox"
                 name="roomCleaning"
                 checked={form.roomCleaning}
+                value={form.roomCleaning}
                 onChange={onChangeCheckboxHandler}
               />
               <label
@@ -312,19 +333,30 @@ function CreateRoom() {
                   height="52"
                 />
               ))}
+
+              {prevImages.map((image, key) => (
+                <img
+                  src={image.url}
+                  key={key}
+                  alt="Images Preview"
+                  className="mt-3 mr-2"
+                  width="55"
+                  height="52"
+                />
+              ))}
             </div>
             <button
               type="submit"
               className="btn btn-block new-room-btn py-3"
               disabled={loading ? true : false}
             >
-              {loading ? <ButtonLoader /> : "CREATE"}
+              {loading ? <ButtonLoader /> : "UPDATE"}
             </button>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default CreateRoom;
+export default UpdateRoomPage;

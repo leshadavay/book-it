@@ -60,6 +60,8 @@ const webhookCheckout = tryCatchAsyncErrors(async (req, res) => {
       process.env.STRIPE_WEBHOOK_SECRET
     );
 
+    console.log("stripe event emitted: ", event);
+
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
 

@@ -174,10 +174,92 @@ const resetUserPassword = tryCatchAsyncErrors(async (req, res, next) => {
   });
 });
 
+/** admin route */
+
+//get all user    =>  /api/admin/users
+const getAllUsersAdmin = tryCatchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+//user details    =>  /api/admin/user/:id
+const getUserDetailsAdmin = tryCatchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.query.id);
+
+  if (!user) {
+    return next(new ErrorHandler("User is not found", 400));
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+//user details    =>  /api/admin/user/:id
+const updateUserDetailsAdmin = tryCatchAsyncErrors(async (req, res, next) => {
+  const { name, email, role } = req.body;
+
+  const user = await User.findByIdAndUpdate(
+    req.query.id,
+    {
+      name,
+      email,
+      role,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+//user details    =>  /api/admin/user/:id
+const deleteUserAdmin = tryCatchAsyncErrors(async (req, res, next) => {
+  //check if target user is current user
+  if (req.user._id === req.query.id) {
+    return next(new ErrorHandler("You can not remove current user", 400));
+  }
+
+  const user = await User.findById(req.query.id);
+
+  if (!user) {
+    return next(new ErrorHandler("User is not found", 400));
+  }
+
+  //remove avatar
+
+  if (user.avatar && user.avatar.public_id) {
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+  }
+
+  //remove booking corresponding for this user
+  await Booking.find({ user: user._id }).remove();
+
+  user.remove();
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
 export {
   registerUser,
   currentUserProfile,
   updateUserProfile,
   forgotUserPassword,
   resetUserPassword,
+  getAllUsersAdmin,
+  getUserDetailsAdmin,
+  updateUserDetailsAdmin,
+  deleteUserAdmin,
 };

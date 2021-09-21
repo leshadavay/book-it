@@ -5,15 +5,15 @@ import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { clearErrors } from "../redux/actions/roomActions";
+import Loader from "./Common/Loader";
 
 import RoomItem from "./Room/RoomItem";
 
 function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { rooms, error, perPage, totalCount, totalCountFiltered } = useSelector(
-    (state) => state.allRooms
-  );
+  const { loading, rooms, error, perPage, totalCount, totalCountFiltered } =
+    useSelector((state) => state.allRooms);
 
   useEffect(() => {
     if (error) {
@@ -27,7 +27,9 @@ function Home() {
     window.location.href = `/?page=${pageNumber}`;
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <section id="rooms" className="container mt-5">
         <h2 className="mb-3 ml-2 stays-heading">
@@ -43,7 +45,7 @@ function Home() {
           {rooms && rooms.length ? (
             rooms.map((room) => <RoomItem key={room._id} room={room} />)
           ) : (
-            <div className="alert alert-danger mt-5 text center w-100">
+            <div className="alert alert-info mt-5 text center w-100">
               <b>No Rooms</b>
             </div>
           )}

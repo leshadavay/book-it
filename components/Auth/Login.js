@@ -54,10 +54,11 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
-            <Link href="/user/forgot" className="float-right mb-4">
-              Forgot Password?
-            </Link>
+            <div className="text-center text-fakebook">
+              <Link href="/user/forgot" className="float-right mb-4 text-info">
+                Forgot Password?
+              </Link>
+            </div>
 
             <button
               id="login_button"
@@ -67,10 +68,11 @@ function Login() {
             >
               {loading ? <ButtonLoader /> : "LOGIN"}
             </button>
-
-            <Link href="/register" className="float-right mt-3">
-              New User?
-            </Link>
+            <div className="text-center text-fakebook mt-5">
+              <Link href="/register" className="float-right mt-3 text-info">
+                New User?
+              </Link>
+            </div>
           </form>
         </div>
       </div>

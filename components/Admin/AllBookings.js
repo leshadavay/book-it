@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { clearErrors } from "../../redux/actions/bookingActions";
+import { useRouter } from "next/router";
+import {
+  clearErrors,
+  deleteBookingAdmin,
+  getAllBookingsAdmin,
+} from "../../redux/actions/bookingActions";
 import { MDBDataTable } from "mdbreact";
 import easyinvoice from "easyinvoice";
-import ButtonLoader from "../Common/ButtonLoader";
+import Loader from "../Common/Loader";
 import Link from "next/link";
-
-function MyBookings() {
+import ButtonLoader from "../Common/ButtonLoader";
+import { DELETE_BOOKING_RESET } from "../../redux/constants/bookingConstants";
+function AllBookingsPage() {
+  const router = useRouter();
   const dispatch = useDispatch();
-
-  const { bookings, error } = useSelector((state) => state.bookings);
   const [loading, setLoading] = useState({});
-
-  useEffect(() => {
-    if (error) {
-      console.log("error: ", error);
-      toast.error(error);
-      dispatch(clearErrors());
-    }
-  }, [dispatch]);
+  const {
+    loading: bookingLoading,
+    bookings,
+    success,
+    error,
+  } = useSelector((state) => state.bookings);
 
   const setBookings = () => {
     const data = {
@@ -35,6 +38,21 @@ function MyBookings() {
           sort: "desc",
         },
         {
+          label: "User Name",
+          field: "username",
+          sort: "desc",
+        },
+        {
+          label: "User email",
+          field: "useremail",
+          sort: "desc",
+        },
+        {
+          label: "Days Of Stay",
+          field: "days",
+          sort: "desc",
+        },
+        {
           label: "Check In",
           field: "checkIn",
           sort: "desc",
@@ -45,7 +63,7 @@ function MyBookings() {
           sort: "desc",
         },
         {
-          label: "Amount paid",
+          label: "Paid",
           field: "amount",
           sort: "desc",
         },
@@ -61,9 +79,13 @@ function MyBookings() {
     //set data
     bookings &&
       bookings.forEach((booking, index) => {
+        const { user } = booking;
         data.rows.push({
           no: index + 1,
           id: booking._id,
+          username: user ? user.name : "",
+          useremail: user ? user.email : "",
+          days: booking.daysOfStay,
           checkIn: new Date(booking.checkInDate).toLocaleString("en-US"),
           checkOut: new Date(booking.checkOutDate).toLocaleString("en-US"),
           amount: `$${booking.amountPaid}`,
@@ -77,12 +99,18 @@ function MyBookings() {
               <button
                 className="btn btn-sm btn-success mx-2"
                 onClick={() => downloadInvoice(booking)}
+              >
+                <i className="fa fa-download" />
+              </button>
+              <button
+                className="btn btn-sm btn-danger"
+                onClick={() => deleteBooking(booking)}
                 disabled={loading[booking._id] ? true : false}
               >
                 {loading[booking._id] ? (
                   <ButtonLoader />
                 ) : (
-                  <i className="fa fa-download" />
+                  <i className="fa fa-trash" />
                 )}
               </button>
             </div>
@@ -95,6 +123,7 @@ function MyBookings() {
 
   const downloadInvoice = async (booking) => {
     setLoading({ [booking._id]: true });
+    const { user } = booking;
     const data = {
       documentTitle: "Booking INVOICE",
       currency: "USD", //See documentation 'Locales and Currency' for more info
@@ -113,8 +142,8 @@ function MyBookings() {
         country: "Uzbekistan",
       },
       client: {
-        company: `${booking.user.name}`,
-        address: `${booking.user.email}`,
+        company: `${user.name}`,
+        address: `${user.email}`,
         zip: "",
         city: `Check In: ${new Date(booking.checkInDate).toLocaleString(
           "en-US"
@@ -145,9 +174,30 @@ function MyBookings() {
     setLoading({ [booking._id]: false });
   };
 
-  return (
-    <div className="container container-fluid">
-      <h1 className="my-5">My Bookings</h1>
+  const deleteBooking = (booking) => {
+    if (confirm("Are you sure")) {
+      dispatch(deleteBookingAdmin(booking._id));
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getAllBookingsAdmin());
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+    if (success) {
+      toast.success("Booking has been removed");
+      dispatch({ type: DELETE_BOOKING_RESET });
+    }
+  }, [dispatch, success]);
+  return bookingLoading ? (
+    <Loader />
+  ) : (
+    <div className="container-lg container-fluid">
+      <h1 className="my-5 text-center">{`${
+        bookings && bookings.length
+      } Bookings`}</h1>
       <MDBDataTable
         data={setBookings()}
         className="px-3"
@@ -159,4 +209,4 @@ function MyBookings() {
   );
 }
 
-export default MyBookings;
+export default AllBookingsPage;

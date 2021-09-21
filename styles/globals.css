@@ -5,6 +5,117 @@ body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
+  background: #141e30; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #292929,
+    #000000
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #292929,
+    #000000
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #f5f5f5;
+}
+
+/*card style */
+.col {
+  height: 100%;
+  transition: transform 600ms cubic-bezier(0.39, 0.575, 0.565, 1),
+    opacity 300ms ease;
+  transform: translateZ(34px) scale(0.98);
+  flex: 0 0 33.3333%;
+  position: relative;
+}
+.col:nth-of-type(1) {
+  transform: rotateY(5deg) translateZ(34px) scale(0.98);
+}
+
+.col:nth-of-type(3) {
+  transform: rotateY(-5deg) translateZ(34px) scale(0.98);
+}
+
+.col:hover,
+.col:focus {
+  transform: translateZ(34px);
+  transition: transform 300ms cubic-bezier(0.39, 0.575, 0.565, 1),
+    opacity 300ms ease;
+}
+
+.card-container {
+  position: relative;
+  /* width: calc(100% - 25px); */
+  width: 100%;
+  height: 100%;
+  margin: 17px;
+  padding: 8px;
+  text-align: center;
+  opacity: 0.89;
+}
+
+.card-container:hover,
+.card-container:focus {
+  opacity: 1;
+}
+
+.card {
+  border-radius: 5px;
+  height: 100%;
+  transition: all 300ms ease-out;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 0;
+  opacity: 0.89;
+  padding: 13px 21px;
+  cursor: pointer;
+  color: #f5f5f5;
+  background-color: #090909;
+}
+
+.card:before {
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.card-container:hover .card:before,
+.card-container:hover .card:after,
+.card-container:focus .card:before,
+.card-container:focus .card:after {
+  opacity: 0.34;
+  transform: scale(1);
+}
+
+.card:after {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.89) 100%
+  );
+}
+
+.card > span {
+  font-size: 34px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 300ms ease;
+  width: 100%;
+}
+
+.card-container:hover > .card > h4,
+.card-container:focus > .card > h4 {
+  transform: translateY(-13px);
+}
+
+.card-container:hover > .card > span,
+.card-container:focus > .card > span {
+  opacity: 1;
+  transform: translateY(-3px);
+  animation: slideRight 300ms ease;
 }
 
 /* Scroll Bar */
@@ -45,7 +156,7 @@ body {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #e61e4d;
+  background: #41e0d7;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
@@ -127,6 +238,7 @@ body {
 
 .wrapper form {
   padding: 2.5rem 3rem;
+  background-color: #202020;
 }
 
 .wrapper form .btn,
@@ -137,23 +249,23 @@ body {
 #forgot_password_button,
 #new_password_button,
 .search-form .btn {
-  background-color: #e61e4d;
-  border-color: #e61e4d;
+  background-color: #41e0d7;
+  border-color: #41e0d7;
   color: white;
   margin-top: 2.5rem;
   font-weight: bold;
 }
 
 .review-btn {
-  background-color: #e61e4d;
-  border-color: #e61e4d;
+  background-color: #41e0d7;
+  border-color: #41e0d7;
   margin-top: 2rem;
   border-radius: 5rem;
 }
 
 .new-room-btn {
-  background-color: #e61e4d;
-  border-color: #e61e4d;
+  background-color: #41e0d7;
+  border-color: #41e0d7;
 }
 
 .wrapper form a {
@@ -224,27 +336,24 @@ nav {
 
 .back-to-search {
   font-size: 1.1rem;
-  color: #e61e4d;
+  color: #50fcff;
   font-weight: 600;
 }
 
 .back-to-search:hover {
-  color: #e61e4d;
+  color: #50fcff;
+  text-decoration: underline;
 }
 
-.card {
+.card div {
+  width: 100%;
   height: 100%;
-  border: 0px;
 }
 
 .card-title a {
-  color: #2e2e2e;
+  /* color: #2e2e2e; */
+  color: #dfdfdf;
   font-size: 1.2rem;
-}
-
-.card-title a:hover {
-  color: #e61e4d;
-  text-decoration: none;
 }
 
 .card-body {
@@ -254,11 +363,12 @@ nav {
 
 .card-text {
   font-size: 1.2rem;
-  color: black;
+  color: #50fcff;
 }
 
 .view-btn {
-  background-color: #e61e4d;
+  background-color: #202020;
+  z-index: 9999;
 }
 
 .view-btn a {
@@ -266,8 +376,7 @@ nav {
 }
 
 .card-img-top {
-  border-radius: 0.8rem;
-  height: 170px;
+  z-index: -99999;
 }
 
 .ratings {
@@ -287,7 +396,7 @@ nav {
   display: inline-block;
   position: relative;
   font-family: FontAwesome;
-  color: #e61e4d;
+  color: #f04ba6;
 }
 
 .rating-outer::before {
@@ -305,7 +414,7 @@ nav {
 
 .rating-inner::before {
   content: "\f005 \f005 \f005 \f005 \f005";
-  color: #e61e4d;
+  color: #f04ba6;
 }
 
 /* Room Details Page */
@@ -447,20 +556,6 @@ input::placeholder {
   height: 40px;
 }
 
-/* Pagination */
-.page-item.active .page-link {
-  background-color: #e61e4d;
-  border-color: #e61e4d;
-}
-
-.page-link {
-  color: #e61e4d;
-}
-
-.page-link:hover {
-  color: #e61e4d;
-}
-
 /* Booking Details */
 .booking-details p {
   margin-left: 1.5rem;
@@ -486,10 +581,82 @@ input::placeholder {
 }
 
 #title_404 {
-  color: #e61e4d;
+  color: #41e0d7;
   font-size: 7rem;
 }
 
 #description_404 {
   color: grey;
+}
+/* pagination */
+.page-link {
+  color: #41e0d7;
+  background-color: #000000;
+  border-color: #2f2f2f2f;
+}
+.page-item.active .page-link {
+  background-color: #41e0d7;
+}
+.page-item.disabled .page-link {
+  color: #206663;
+  background-color: #000000;
+  border-color: #2f2f2f2f;
+}
+.page-link:hover {
+  color: #41e0d7;
+  border-color: #2f2f2f2f;
+  background-color: #1d1d1d;
+}
+/* MDB data table */
+.table-bordered {
+  color: rgba(190, 190, 190, 0.867);
+}
+.table-bordered thead {
+  background-color: #206663;
+  color: black;
+}
+.table-bordered th {
+  border: 1px solid #242424;
+  cursor: pointer;
+}
+.table-bordered th:hover {
+  cursor: pointer;
+  color: #41e0d7 !important;
+}
+.table-bordered tbody td {
+  border: 1px solid #242424;
+}
+.table-bordered tbody tr:hover {
+  color: #41e0d7 !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgb(39 152 157 / 5%);
+}
+
+/* form */
+.form-group .form-control {
+  color: #d7d7d7;
+  background-color: #161616;
+  border: 1px solid #000000;
+}
+.form-control:active {
+  background-color: #161616;
+}
+
+.bg-black {
+  background-color: black;
+}
+.text-fakebook > a {
+  color: #41e0d7 !important;
+}
+/* modal */
+.modal-content {
+  background-color: #202020;
+}
+.room-feature .fa,
+.room-feature p {
+  color: #d9d9d9;
+}
+.price-per-night {
+  color: #41e0d7;
 }

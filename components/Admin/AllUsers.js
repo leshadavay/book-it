@@ -4,34 +4,27 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import {
   clearErrors,
-  deleteRoomAdmin,
-  getAdminRooms,
-} from "../../redux/actions/roomActions";
+  deleteUserAdmin,
+  getAllUsersAdmin,
+} from "../../redux/actions/userActions";
 import { MDBDataTable } from "mdbreact";
 import Loader from "../Common/Loader";
 import Link from "next/link";
 import ButtonLoader from "../Common/ButtonLoader";
-import { DELETE_ROOM_RESET } from "../../redux/constants/roomConstants";
+import { DELETE_USER_RESET } from "../../redux/constants/userConstants";
 
-function AllRoomsPage() {
+function AllUsersPage() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [actionLoading, setActionLoading] = useState({});
-  const { loading, rooms, error } = useSelector((state) => state.allRooms);
+  const { loading, error, users } = useSelector((state) => state.allUsers);
   const {
-    loading: deleteLoading,
     isDeleted,
     error: deleteError,
-  } = useSelector((state) => state.room);
+    loading: deleteLoading,
+  } = useSelector((state) => state.user);
 
-  const removeRoom = (roomId) => {
-    if (confirm("Are you sure?")) {
-      setActionLoading({ [roomId]: true });
-      dispatch(deleteRoomAdmin(roomId));
-    }
-  };
-
-  const setRooms = () => {
+  const setUsers = () => {
     const data = {
       columns: [
         {
@@ -40,7 +33,7 @@ function AllRoomsPage() {
           sort: "desc",
         },
         {
-          label: "Room Id",
+          label: "User Id",
           field: "id",
           sort: "desc",
         },
@@ -50,13 +43,13 @@ function AllRoomsPage() {
           sort: "desc",
         },
         {
-          label: "Price/Night",
-          field: "price",
+          label: "Email",
+          field: "email",
           sort: "desc",
         },
         {
-          label: "Category",
-          field: "category",
+          label: "Role",
+          field: "role",
           sort: "desc",
         },
         {
@@ -69,27 +62,27 @@ function AllRoomsPage() {
     };
 
     //set data
-    rooms &&
-      rooms.forEach((room, index) => {
+    users &&
+      users.forEach((user, index) => {
         data.rows.push({
           no: index + 1,
-          id: room._id,
-          name: room.name,
-          price: `$${room.pricePerNight}`,
-          category: room.category,
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
           actions: (
             <div className="d-flex">
-              <Link href={`/admin/rooms/${room._id}`}>
+              <Link href={`/admin/users/${user._id}`}>
                 <a className="btn btn-sm btn-primary">
                   <i className="fa fa-pencil" />
                 </a>
               </Link>
               <button
                 className="btn btn-sm btn-danger mx-2"
-                onClick={(e) => removeRoom(room._id)}
+                onClick={(e) => deleteUserHandler(user._id)}
                 disabled={deleteLoading ? true : false}
               >
-                {actionLoading[room._id] === true ? (
+                {actionLoading[user._id] === true ? (
                   <ButtonLoader />
                 ) : (
                   <i className="fa fa-trash" />
@@ -103,8 +96,15 @@ function AllRoomsPage() {
     return data;
   };
 
+  const deleteUserHandler = (userId) => {
+    if (confirm("Are you sure?")) {
+      setActionLoading({ [userId]: true });
+      dispatch(deleteUserAdmin(userId));
+    }
+  };
+
   useEffect(() => {
-    dispatch(getAdminRooms());
+    dispatch(getAllUsersAdmin());
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
@@ -114,25 +114,21 @@ function AllRoomsPage() {
       dispatch(clearErrors());
     }
     if (isDeleted) {
-      toast.success("Room has been removed successfully");
-      dispatch({ type: DELETE_ROOM_RESET });
+      toast.success("User has been removed successfully");
+      dispatch({ type: DELETE_USER_RESET });
     }
     setActionLoading({});
-  }, [dispatch, isDeleted, error]);
+  }, [dispatch, error, deleteError, isDeleted]);
 
   return loading ? (
     <Loader />
   ) : (
     <div className="container container-fluid">
-      <h1 className="my-5 text-center">{`${rooms && rooms.length} Rooms`}</h1>
-      <Link href="/admin/rooms/create">
-        <a className="mt-0 btn text-white float-right new-room-btn">
-          Create Room
-        </a>
-      </Link>
-      <MDBDataTable data={setRooms()} className="px-3" bordered striped hover />
+      <h1 className="my-5 text-center">{`${users && users.length} Users`}</h1>
+
+      <MDBDataTable data={setUsers()} className="px-3" bordered striped hover />
     </div>
   );
 }
 
-export default AllRoomsPage;
+export default AllUsersPage;

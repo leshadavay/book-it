@@ -17,6 +17,7 @@
     "cloudinary": "^1.26.3",
     "dotenv": "^10.0.0",
     "easyinvoice": "^1.0.147",
+    "fs": "0.0.1-security",
     "immer": "^9.0.6",
     "mdbreact": "^5.1.0",
     "moment": "^2.29.1",

@@ -2,6 +2,7 @@ import tryCatchAsyncErrors from "../middlewares/tryCatchAsyncErrors";
 import Booking from "../models/booking";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
+import ErrorHandler from "../utils/errorHandler";
 const moment = extendMoment(Moment);
 
 //create new booking  =>  /api/booking
@@ -142,10 +143,46 @@ const getBookingDetails = tryCatchAsyncErrors(async (req, res) => {
   });
 });
 
+/** admin routes */
+
+//get all bookings
+const getAllBookingsAdmin = tryCatchAsyncErrors(async (req, res) => {
+  const bookings = await Booking.find()
+    .populate({
+      path: "user",
+      select: "name email",
+    })
+    .populate({
+      path: "room",
+      select: "name pricePerNight images",
+    });
+
+  res.status(200).json({
+    bookings,
+  });
+});
+
+//remove booking from table list  =>  /api/admin/bookings/[id]
+const deleteBookingAdmin = tryCatchAsyncErrors(async (req, res) => {
+  const booking = await Booking.findById(req.query.id);
+
+  if (!booking) {
+    return next(new ErrorHandler("Booking is not found ", 404));
+  }
+
+  await booking.remove();
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
 export {
   newBooking,
   checkBookingAvailability,
   getBookedDatesOfRoom,
   getMyBookings,
   getBookingDetails,
+  getAllBookingsAdmin,
+  deleteBookingAdmin,
 };
