@@ -22,7 +22,7 @@ module.exports = {
     SMTP_FROM_NAME: "FakeBook",
     SMTP_FROM_EMAIL: "noreply@fakebook.com",
 
-    NEXT_AUTH_URL: "",
+    NEXT_AUTH_URL: "fakebook-tau.vercel.app",
   },
   images: {
     domains: ["res.cloudinary.com"],
