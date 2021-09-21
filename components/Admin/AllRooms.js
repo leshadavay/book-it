@@ -118,7 +118,7 @@ function AllRoomsPage() {
       dispatch({ type: DELETE_ROOM_RESET });
     }
     setActionLoading({});
-  }, [dispatch, isDeleted, error]);
+  }, [dispatch, isDeleted, error, deleteError]);
 
   return loading ? (
     <Loader />

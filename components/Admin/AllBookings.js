@@ -190,7 +190,7 @@ function AllBookingsPage() {
       toast.success("Booking has been removed");
       dispatch({ type: DELETE_BOOKING_RESET });
     }
-  }, [dispatch, success]);
+  }, [dispatch, success, error]);
   return bookingLoading ? (
     <Loader />
   ) : (

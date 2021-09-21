@@ -127,7 +127,7 @@ const UpdateRoomPage = () => {
         <div className="col-10 col-lg-8">
           <form
             className="shadow-lg"
-            enctype="multipart/form-data"
+            encType="multipart/form-data"
             onSubmit={onSubmitHandler}
           >
             <h1 className="mb-4">New Room</h1>
