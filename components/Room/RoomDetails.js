@@ -161,7 +161,7 @@ function RoomDetails() {
   return (
     <>
       <Head>
-        <title>{room.name} - BookIt</title>
+        <title>{room.name} - FakeBook</title>
       </Head>
       <div className="container container-fluid">
         <h2 className="mt-5">{room.name}</h2>

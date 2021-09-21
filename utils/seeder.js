@@ -10,7 +10,7 @@ const mongoDBConnect = () => {
     return;
   }
   mongoose
-    .connect("mongodb://localhost:27017/room_booking", {
+    .connect(process.env.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
@@ -26,7 +26,15 @@ const seedRooms = async () => {
     await Room.deleteMany();
     console.log("rooms are deleted");
 
-    await Room.insertMany(rooms);
+    let rooms_ready = [];
+    rooms.map((room) => {
+      rooms_ready.push({
+        ...room,
+        _id: mongoose.Types.ObjectId.toString(room._id),
+      });
+    });
+    await Room.insertMany(rooms_ready);
+
     console.log("all rooms are created");
   } catch (error) {
     console.log("error: ", error.message);

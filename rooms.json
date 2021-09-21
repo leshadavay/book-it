@@ -18,17 +18,10 @@
   "images": [
     {
       "_id": {
-        "$oid": "611cec6607a58f18146b6072"
+        "$oid": "6149bc410bdf47337ceddd5a"
       },
-      "public_id": "bookit/rooms/1_bzynlv",
-      "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/1_bzynlv.jpg"
-    },
-    {
-      "_id": {
-        "$oid": "611cec6607a58f18146b6073"
-      },
-      "public_id": "bookit/rooms/2_s1u52n",
-      "url": "https://res.cloudinary.com/bookit/image/upload/v1618590761/bookit/rooms/2_s1u52n.jpg"
+      "public_id": "fakebook/rooms/othen532kwe1kmk3fbag",
+      "url": "https://res.cloudinary.com/lesha/image/upload/v1632222273/fakebook/rooms/othen532kwe1kmk3fbag.jpg"
     }
   ],
   "category": "King",

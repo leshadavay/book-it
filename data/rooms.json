@@ -1,170 +1,608 @@
 [
   {
-    "name": "Charming Studio < 10 Miles to Wells' Beaches!",
-    "pricePerNight": 168,
-    "description": "A friendly atmosphere and natural delights await your visit to the town of Wells! Stay at this well-equipped 1-bath studio and enjoy easy access to several beaches, including Wells Beach and Drakes Island Beach, as well as Rachel Carson National Wildlife Refuge - the best spot for wildlife viewing just 8 miles away. Not to mention, with the downtown area just 10 minutes from the vacation rental,",
-    "address": "4667 Bicetown Street, New York, NY, 10004",
-    "guestCapacity": 1,
-    "numOfBeds": 1,
+    "_id": {
+      "$oid": "611cec6607a58f18146b6071"
+    },
     "internet": true,
     "breakfast": true,
     "airConditioned": false,
     "petsAllowed": false,
     "roomCleaning": true,
+    "rating": 4,
+    "numOfReviews": 2,
+    "name": "Charming Studio < 10 Miles to Wells' Beaches!",
+    "pricePerNight": 168,
+    "description": "A friendly atmosphere and natural delights await your visit to the town of Wells! Stay at this well-equipped 1-bath studio and enjoy easy access to several beaches, including Wells Beach and Drakes Island Beach, as well as Rachel Carson National Wildlife Refuge - the best spot for wildlife viewing just 8 miles away. Not to mention, with the downtown area just 10 minutes from the vacation rental,",
+    "address": "4667 Bicetown Street, New York, NY",
+    "guestCapacity": 1,
+    "numOfBeds": 1,
     "images": [
       {
-        "public_id": "bookit/rooms/1_bzynlv",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/1_bzynlv.jpg"
-      },
-      {
-        "public_id": "bookit/rooms/2_s1u52n",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590761/bookit/rooms/2_s1u52n.jpg"
+        "_id": {
+          "$oid": "6149bc410bdf47337ceddd5a"
+        },
+        "public_id": "fakebook/rooms/othen532kwe1kmk3fbag",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632222273/fakebook/rooms/othen532kwe1kmk3fbag.jpg"
       }
     ],
-    "category": "King"
+    "category": "King",
+    "reviews": [
+      {
+        "_id": {
+          "$oid": "6148734a0bdf47337cedd920"
+        },
+        "user": {
+          "$oid": "6148712b0bdf47337cedd8f9"
+        },
+        "name": "tester",
+        "rating": 5,
+        "comment": "Ohoooo"
+      },
+      {
+        "_id": {
+          "$oid": "6149a1d10bdf47337ceddba3"
+        },
+        "user": {
+          "$oid": "6128ddd3e2897a289c6abcdd"
+        },
+        "name": "asd@asd.asd",
+        "rating": 3,
+        "comment": "ok"
+      }
+    ],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.678Z"
+    },
+    "__v": 6
   },
   {
-    "name": "Picturesque 2-Story Farmhouse w/Private Hot Tub",
-    "pricePerNight": 242,
-    "description": "Find plenty of space for a family or a large group at this picturesque Wells home, the perfect spot for a relaxing getaway in charming, quintessential Maine style! Spend your days on the beautiful nearby beaches, and come home to a large backyard and orchard where your kids can play, as well as a patio with a gas grill for barbecues on summer afternoons.",
-    "address": "200 Olympic Dr, Stafford, VS, 22554",
-    "guestCapacity": 2,
-    "numOfBeds": 2,
+    "_id": {
+      "$oid": "611cec6607a58f18146b6074"
+    },
     "internet": true,
     "breakfast": false,
     "airConditioned": true,
     "petsAllowed": false,
     "roomCleaning": true,
+    "rating": 0,
+    "numOfReviews": 0,
+    "name": "Picturesque 2-Story Farmhouse w/Private Hot Tub",
+    "pricePerNight": 242,
+    "description": "Find plenty of space for a family or a large group at this picturesque Wells home, the perfect spot for a relaxing getaway in charming, quintessential Maine style! Spend your days on the beautiful nearby beaches, and come home to a large backyard and orchard where your kids can play, as well as a patio with a gas grill for barbecues on summer afternoons.",
+    "address": "200 Olympic Dr, Stafford, VS",
+    "guestCapacity": 2,
+    "numOfBeds": 2,
     "images": [
       {
-        "public_id": "bookit/rooms/3_quuli7.jpg",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/3_quuli7.jpg"
+        "_id": {
+          "$oid": "6149af370bdf47337ceddc47"
+        },
+        "public_id": "fakebook/rooms/xpcv7j5lca8ulsx5urrr",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218933/fakebook/rooms/xpcv7j5lca8ulsx5urrr.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149af370bdf47337ceddc48"
+        },
+        "public_id": "fakebook/rooms/kkwfftkcgn9v4x0jrk2w",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218935/fakebook/rooms/kkwfftkcgn9v4x0jrk2w.jpg"
       }
     ],
-    "category": "Twins"
+    "category": "Twins",
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.680Z"
+    },
+    "__v": 0
   },
   {
-    "name": "Downtown Portsmouth Private Getaway! Hot Tub",
-    "pricePerNight": 85,
-    "description": "Absolutely the best location in Portsmouth! Beautifully furnished, this spacious and private home is perfectly suited for taking in all of the must-see sights and historic landmarks that make this vibrant city so unique. Situated near the banks of the Piscataqua River just minutes away from Strawbery Banke Museum, Prescott Park, USS Albacore Museum, Market Square and more!",
-    "address": "3747 Parkway Street, Apple Valley, CA, 92307",
-    "guestCapacity": 3,
-    "numOfBeds": 2,
+    "_id": {
+      "$oid": "611cec6607a58f18146b6076"
+    },
     "internet": true,
     "breakfast": true,
     "airConditioned": true,
     "petsAllowed": true,
     "roomCleaning": false,
+    "rating": 3,
+    "numOfReviews": 1,
+    "name": "Downtown Portsmouth Private Getaway! Hot Tub",
+    "pricePerNight": 85,
+    "description": "Absolutely the best location in Portsmouth! Beautifully furnished, this spacious and private home is perfectly suited for taking in all of the must-see sights and historic landmarks that make this vibrant city so unique. Situated near the banks of the Piscataqua River just minutes away from Strawbery Banke Museum, Prescott Park, USS Albacore Museum, Market Square and more!",
+    "address": "3747 Parkway Street, Apple Valley, CA",
+    "guestCapacity": 3,
+    "numOfBeds": 2,
     "images": [
       {
-        "public_id": "bookit/rooms/4_sju0ql",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590765/bookit/rooms/4_sju0ql.jpg"
+        "_id": {
+          "$oid": "6149af1a0bdf47337ceddc3b"
+        },
+        "public_id": "fakebook/rooms/umu0p2mlramweowixmdj",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218904/fakebook/rooms/umu0p2mlramweowixmdj.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149af1a0bdf47337ceddc3c"
+        },
+        "public_id": "fakebook/rooms/n2v5pq7kiebiku7gxkyy",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218906/fakebook/rooms/n2v5pq7kiebiku7gxkyy.jpg"
       }
     ],
-    "category": "King"
+    "category": "King",
+    "reviews": [
+      {
+        "_id": {
+          "$oid": "613f533ad9d77141fc8a5db3"
+        },
+        "user": {
+          "$oid": "6128ddd3e2897a289c6abcdd"
+        },
+        "name": "asd@asd.asd",
+        "rating": 3,
+        "comment": "Oh yess"
+      }
+    ],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.683Z"
+    },
+    "__v": 1
   },
   {
+    "_id": {
+      "$oid": "611cec6607a58f18146b6078"
+    },
+    "internet": true,
+    "breakfast": true,
+    "airConditioned": true,
+    "petsAllowed": false,
+    "roomCleaning": true,
+    "rating": 0,
+    "numOfReviews": 0,
     "name": "Spacious Suite in a quiet Boston neighborhood.",
     "pricePerNight": 95,
     "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
-    "address": "224 Cherry St, Buffalo, NY, 14202",
+    "address": "224 Cherry St, Buffalo, NY",
     "guestCapacity": 6,
     "numOfBeds": 3,
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149aeff0bdf47337ceddc32"
+        },
+        "public_id": "fakebook/rooms/uadufbvm6an7pqf3hzfp",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218877/fakebook/rooms/uadufbvm6an7pqf3hzfp.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149aeff0bdf47337ceddc33"
+        },
+        "public_id": "fakebook/rooms/pgce7ksrum9e5hfyvyy6",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218879/fakebook/rooms/pgce7ksrum9e5hfyvyy6.jpg"
+      }
+    ],
+    "category": "Single",
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.685Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "611cec6607a58f18146b607b"
+    },
     "internet": true,
     "breakfast": true,
     "airConditioned": true,
     "petsAllowed": false,
     "roomCleaning": true,
-    "images": [
-      {
-        "public_id": "bookit/rooms/5_jmydt6",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590762/bookit/rooms/5_jmydt6.jpg"
-      },
-      {
-        "public_id": "bookit/rooms/6_nwmr5f",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/6_nwmr5f.jpg"
-      }
-    ],
-    "category": "Single"
-  },
-  {
+    "rating": 0,
+    "numOfReviews": 0,
     "name": "Shangri-La Hotel, Washington",
     "pricePerNight": 105,
     "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
-    "address": "4724  Mudlick Road, Yakima, WA, 98902",
+    "address": "4724  Mudlick Road, Yakima, WA",
     "guestCapacity": 2,
     "numOfBeds": 1,
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149aeec0bdf47337ceddc2a"
+        },
+        "public_id": "fakebook/rooms/y7kinxp5rrlu27zwxhef",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218858/fakebook/rooms/y7kinxp5rrlu27zwxhef.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149aeec0bdf47337ceddc2b"
+        },
+        "public_id": "fakebook/rooms/mr5xdogyoqr4dxv2qymo",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218859/fakebook/rooms/mr5xdogyoqr4dxv2qymo.jpg"
+      }
+    ],
+    "category": "King",
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.687Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "611cec6607a58f18146b607d"
+    },
     "internet": true,
     "breakfast": true,
     "airConditioned": true,
     "petsAllowed": false,
     "roomCleaning": true,
-    "images": [
-      {
-        "public_id": "bookit/rooms/7_hshhzq",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590764/bookit/rooms/7_hshhzq.jpg"
-      }
-    ],
-    "category": "King"
-  },
-  {
+    "rating": 0,
+    "numOfReviews": 0,
     "name": "Hotel Chimayo de Santa Fe Rooms",
     "pricePerNight": 36,
     "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
-    "address": "1029  Godfrey Street, Portland, OR, 97205",
+    "address": "1029  Godfrey Street, Portland, OR",
     "guestCapacity": 2,
     "numOfBeds": 2,
-    "internet": true,
-    "breakfast": true,
-    "airConditioned": true,
-    "petsAllowed": false,
-    "roomCleaning": true,
     "images": [
       {
-        "public_id": "bookit/rooms/8_crn0xy",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590765/bookit/rooms/8_crn0xy.jpg"
+        "_id": {
+          "$oid": "6149aecd0bdf47337ceddc20"
+        },
+        "public_id": "fakebook/rooms/csqi8cxumcjlgnw0fx96",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218827/fakebook/rooms/csqi8cxumcjlgnw0fx96.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149aecd0bdf47337ceddc21"
+        },
+        "public_id": "fakebook/rooms/eh9yy7mjtoxxxekbqavg",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218828/fakebook/rooms/eh9yy7mjtoxxxekbqavg.jpg"
       }
     ],
-    "category": "Twins"
+    "category": "Twins",
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.690Z"
+    },
+    "__v": 0
   },
   {
-    "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
-    "pricePerNight": 82,
-    "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
-    "address": "2645  Parrish Avenue, SAINT LOUIS, MO, 63116",
-    "guestCapacity": 5,
-    "numOfBeds": 3,
+    "_id": {
+      "$oid": "611cec6607a58f18146b607f"
+    },
     "internet": true,
     "breakfast": true,
     "airConditioned": true,
     "petsAllowed": false,
     "roomCleaning": false,
+    "rating": 0,
+    "numOfReviews": 0,
+    "name": "Hotel Garni Ischgl ☆ 4 star room comfort",
+    "pricePerNight": 82,
+    "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
+    "address": "2645  Parrish Avenue, SAINT LOUIS, MO",
+    "guestCapacity": 5,
+    "numOfBeds": 3,
     "images": [
       {
-        "public_id": "bookit/rooms/9_konrjf",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590849/bookit/rooms/9_konrjf.jpg"
+        "_id": {
+          "$oid": "6149aeb00bdf47337ceddc10"
+        },
+        "public_id": "fakebook/rooms/tkprz0acwrmlrvn9juvi",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218798/fakebook/rooms/tkprz0acwrmlrvn9juvi.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149aeb00bdf47337ceddc11"
+        },
+        "public_id": "fakebook/rooms/hjkubs0goxhsm4zkcndi",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218799/fakebook/rooms/hjkubs0goxhsm4zkcndi.jpg"
       }
     ],
-    "category": "Single"
+    "category": "King",
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.691Z"
+    },
+    "__v": 0
   },
   {
-    "name": "The Spa at Base Camp at Kerry Hotel",
-    "pricePerNight": 76,
-    "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
-    "address": "3118  Red Hawk Road, Garfield, MN, 56332",
-    "guestCapacity": 2,
-    "numOfBeds": 1,
+    "_id": {
+      "$oid": "611cec6607a58f18146b6081"
+    },
     "internet": true,
     "breakfast": false,
     "airConditioned": true,
     "petsAllowed": false,
     "roomCleaning": true,
+    "rating": 0,
+    "numOfReviews": 0,
+    "name": "The Spa at Base Camp at Kerry Hotel",
+    "pricePerNight": 76,
+    "description": "Our largest room with a queen bed and foldable sofa. Comfortably fits 2-3 adults, four adults maximum. Decorated with Irish-themed colors and arts. It has a private bathroom with a shower, equipped with smart TV, mini-fridge, desk, chairs. Enjoy City views at the sitting area by the window. Located on the 3rd floor with no elevator.",
+    "address": "3118  Red Hawk Road, Garfield",
+    "guestCapacity": 2,
+    "numOfBeds": 1,
     "images": [
       {
-        "public_id": "bookit/rooms/10_w8w8yi",
-        "url": "https://res.cloudinary.com/bookit/image/upload/v1618590840/bookit/rooms/10_w8w8yi.jpg"
+        "_id": {
+          "$oid": "6149ae980bdf47337ceddc08"
+        },
+        "public_id": "fakebook/rooms/hixwrw7w4vvarzfs4bol",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218774/fakebook/rooms/hixwrw7w4vvarzfs4bol.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149ae980bdf47337ceddc09"
+        },
+        "public_id": "fakebook/rooms/bfwh2ovecot5uhppyh0b",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632218776/fakebook/rooms/bfwh2ovecot5uhppyh0b.jpg"
       }
     ],
-    "category": "Single"
+    "category": "Twins",
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-08-18T11:17:58.693Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6149afd80bdf47337ceddc50"
+    },
+    "internet": true,
+    "breakfast": true,
+    "airConditioned": true,
+    "petsAllowed": true,
+    "roomCleaning": true,
+    "rating": 0,
+    "numOfReviews": 0,
+    "category": "King",
+    "guestCapacity": 1,
+    "numOfBeds": 1,
+    "name": "The Beekman, A Thompson Hotel",
+    "pricePerNight": 150,
+    "description": "Nestled in the epicenter of Lower Manhattans vibrant new downtown lies New Yorks last hidden architectural treasure - The Beekman a Thompson Hotel. One of Manhattans first skyscrapers the heart of this iconic building is its extraordinary nine-story Victorian atrium and majestic pyramidal skylight. Originally the site played host to many milestones including New Yorks debut of Shakespeares Hamlet and the famed Clinton Hall a library where writers such as Edgar Allen Poe honed their craft",
+    "address": "123 Nassau Street, New York, NY",
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149afd80bdf47337ceddc51"
+        },
+        "public_id": "fakebook/rooms/r93ccdstp0mnsldsqibs",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219094/fakebook/rooms/r93ccdstp0mnsldsqibs.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149afd80bdf47337ceddc52"
+        },
+        "public_id": "fakebook/rooms/je8acurrpvpnf3rkl9pd",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219095/fakebook/rooms/je8acurrpvpnf3rkl9pd.jpg"
+      }
+    ],
+    "user": {
+      "$oid": "6128ddd3e2897a289c6abcdd"
+    },
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-09-21T10:11:36.555Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6149b25d0bdf47337ceddc67"
+    },
+    "internet": true,
+    "breakfast": true,
+    "airConditioned": true,
+    "petsAllowed": true,
+    "roomCleaning": true,
+    "rating": 0,
+    "numOfReviews": 0,
+    "category": "King",
+    "guestCapacity": 1,
+    "numOfBeds": 1,
+    "name": "Refinery Hotel",
+    "pricePerNight": 291,
+    "description": "Situated in Manhattan, Refinery Hotel offers modern accommodation with superior amenities. It is located a brief walk from Empire State Building, Times Square and the New York Public Library. Guests can make the most of the sun on the terrace or have a drink at the bar. Free Wi-Fi access is available. The rooms are air conditioned and feature an iPod docking station, a mini bar and a private bathroom. They all offer a flat-screen TV, a seating area and an in-room safe. On-site dining options include a restaurant, which is a convenient spot to enjoy a meal. Guests can also try one of the various bars and restaurants in the area. New York City's popular tourist spots are within close proximity to Refinery Hotel, with Bryant Park only a five-minute stroll away. Guests can also visit Madison Square Garden and Rockefeller Center",
+    "address": "63 West 38th Street, New York, NY 10018",
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149b25d0bdf47337ceddc68"
+        },
+        "public_id": "fakebook/rooms/v8kpvj3wjta7fykog6v9",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219739/fakebook/rooms/v8kpvj3wjta7fykog6v9.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149b25d0bdf47337ceddc69"
+        },
+        "public_id": "fakebook/rooms/qqref4bplvkfsyzhifud",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219740/fakebook/rooms/qqref4bplvkfsyzhifud.jpg"
+      }
+    ],
+    "user": {
+      "$oid": "6128ddd3e2897a289c6abcdd"
+    },
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-09-21T10:22:21.375Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6149b2c60bdf47337ceddc72"
+    },
+    "internet": true,
+    "breakfast": false,
+    "airConditioned": true,
+    "petsAllowed": false,
+    "roomCleaning": true,
+    "rating": 0,
+    "numOfReviews": 0,
+    "category": "King",
+    "guestCapacity": 1,
+    "numOfBeds": 1,
+    "name": "Harlem Lodge",
+    "pricePerNight": 100,
+    "description": "Located within 1.6 mi of Columbia University and 2.2 mi of Metropolitan Museum of Art in New York, Harlem Lodge provides accommodations with free WiFi and flat-screen TV. All units are air conditioned and include a seating and/or dining area. Yankee Stadium is 2.4 mi from the apartment, while Strawberry Fields is 3.1 mi away. The nearest airport is LaGuardia Airport, 4.3 mi from Harlem Lodge",
+    "address": "New York 123",
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149b2c60bdf47337ceddc73"
+        },
+        "public_id": "fakebook/rooms/eypj9tvdamnpyxbsdfmu",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219844/fakebook/rooms/eypj9tvdamnpyxbsdfmu.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149b2c60bdf47337ceddc74"
+        },
+        "public_id": "fakebook/rooms/gbug09jrlonabkyonler",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219846/fakebook/rooms/gbug09jrlonabkyonler.jpg"
+      }
+    ],
+    "user": {
+      "$oid": "6128ddd3e2897a289c6abcdd"
+    },
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-09-21T10:24:06.543Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6149b3010bdf47337ceddc7d"
+    },
+    "internet": false,
+    "breakfast": false,
+    "airConditioned": false,
+    "petsAllowed": false,
+    "roomCleaning": false,
+    "rating": 0,
+    "numOfReviews": 0,
+    "category": "Twins",
+    "guestCapacity": 3,
+    "numOfBeds": 2,
+    "name": "The Harlem Cascades",
+    "pricePerNight": 125,
+    "description": "Located 1.7 mi from Columbia University in New York, The Harlem Cascades provides accommodations with air conditioning and free WiFi. The apartment offers a seating area with a flat-screen TV and a private bathroom with a hairdryer, free toiletries and shower. Yankee Stadium is 2.1 mi from The Harlem Cascades, while Metropolitan Museum of Art is 2.6 mi away. The nearest airport is LaGuardia Airport, 4.3 mi from the accommodations",
+    "address": "The neighborhood - Harlem",
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149b3010bdf47337ceddc7e"
+        },
+        "public_id": "fakebook/rooms/zfape56intvfrbdxisly",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219902/fakebook/rooms/zfape56intvfrbdxisly.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149b3010bdf47337ceddc7f"
+        },
+        "public_id": "fakebook/rooms/q7m7oqcnlhwblns0kzbf",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219904/fakebook/rooms/q7m7oqcnlhwblns0kzbf.jpg"
+      }
+    ],
+    "user": {
+      "$oid": "6128ddd3e2897a289c6abcdd"
+    },
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-09-21T10:25:05.293Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6149b3440bdf47337ceddc88"
+    },
+    "internet": false,
+    "breakfast": false,
+    "airConditioned": false,
+    "petsAllowed": false,
+    "roomCleaning": false,
+    "rating": 0,
+    "numOfReviews": 0,
+    "category": "King",
+    "guestCapacity": 1,
+    "numOfBeds": 1,
+    "name": "NH Collection New York Madison Avenue",
+    "description": "The NH Collection New York Madison Avenue in New York is situated in the heart of the city, and has been completely refurbished in 2020. Guests of the NH Collection New York Madison Avenue hotel are within easy walking distance of major Manhattan attractions. Take in the hustle and bustle of Times Square, then cap off your day with a trip to the top of the Empire State Building. For legendary shopping, visit Madison Avenue, Fifth Avenue, and Grand Central Terminal. Art enthusiasts can access priceless works of art at the MoMA within minutes, while the nearby Bryant Park offers a scenic spot for a cup of coffee. For the business traveler, the NH Collection New York Madison Avenue in New York City provides sophisticated meeting facilities that comfortably host events for groups of up to 30. A gym, bar and tearoom are also open onsite, giving you the perfect place to dine, unwind and stay in shape in the city that never sleeps",
+    "pricePerNight": 277,
+    "address": "22 East 38th Street, New York, NY",
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149b3440bdf47337ceddc89"
+        },
+        "public_id": "fakebook/rooms/kjh7kfatkoy8ktucly6g",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219969/fakebook/rooms/kjh7kfatkoy8ktucly6g.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149b3440bdf47337ceddc8a"
+        },
+        "public_id": "fakebook/rooms/niyeyvrepgzovn2fkcik",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632219971/fakebook/rooms/niyeyvrepgzovn2fkcik.jpg"
+      }
+    ],
+    "user": {
+      "$oid": "6128ddd3e2897a289c6abcdd"
+    },
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-09-21T10:26:12.626Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6149b3730bdf47337ceddc93"
+    },
+    "internet": true,
+    "breakfast": false,
+    "airConditioned": true,
+    "petsAllowed": true,
+    "roomCleaning": false,
+    "rating": 0,
+    "numOfReviews": 0,
+    "category": "Twins",
+    "guestCapacity": 2,
+    "numOfBeds": 2,
+    "name": "The Nomad Suites & Apartments",
+    "pricePerNight": 110,
+    "description": "With a stay at The Nomad Suites & Apartments, you'll be centrally located in New York, steps from 5th Avenue and 4 minutes by foot from Empire State Building. Featured amenities include a 24-hour front desk, luggage storage, and laundry facilities. Self parking (subject to charges) is available onsite",
+    "address": "New York Public Library0.5 mi",
+    "images": [
+      {
+        "_id": {
+          "$oid": "6149b3730bdf47337ceddc94"
+        },
+        "public_id": "fakebook/rooms/eswai1l0lfrxykis3vgr",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632220016/fakebook/rooms/eswai1l0lfrxykis3vgr.jpg"
+      },
+      {
+        "_id": {
+          "$oid": "6149b3730bdf47337ceddc95"
+        },
+        "public_id": "fakebook/rooms/igss70skja0phfgkzquj",
+        "url": "https://res.cloudinary.com/lesha/image/upload/v1632220018/fakebook/rooms/igss70skja0phfgkzquj.jpg"
+      }
+    ],
+    "user": {
+      "$oid": "6128ddd3e2897a289c6abcdd"
+    },
+    "reviews": [],
+    "createdAt": {
+      "$date": "2021-09-21T10:26:59.211Z"
+    },
+    "__v": 0
   }
 ]

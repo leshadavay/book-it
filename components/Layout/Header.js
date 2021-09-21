@@ -41,7 +41,7 @@ function Header() {
                   top: "-20px",
                 }}
                 src="/images/fakebook.png"
-                alt="BookIT"
+                alt="FAKEBOOK"
               />
             </Link>
           </div>

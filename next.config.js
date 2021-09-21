@@ -21,8 +21,10 @@ module.exports = {
     SMTP_PASSWORD: "c10d8ce207f5eb",
     SMTP_FROM_NAME: "FakeBook",
     SMTP_FROM_EMAIL: "noreply@fakebook.com",
+
+    NEXT_AUTH_URL: "",
   },
   images: {
-    domains: ["res.cloudinary.com", "a0.muscache.com"],
+    domains: ["res.cloudinary.com"],
   },
 };
