@@ -3,14 +3,14 @@ module.exports = {
   env: {
     DB_LOCAL_URI: "mongodb://localhost:27017/room_booking",
     DB_URI:
-      "mongodb+srv://admin:<Cloudmongodb4$>@cluster0.7ceub.mongodb.net/fakebook?retryWrites=true&w=majority",
+      "mongodb+srv://admin:Cloudmongodb4$@cluster0.7ceub.mongodb.net/fakebook?retryWrites=true&w=majority",
 
     STRIPE_API_KEY:
       "pk_test_51JY8UnDasotYSPMe2u9T5ucUInOzYXHGjxJS8yjGMAau3DHroXwE5mPhbfudO6vQDxj93WXIQWMfnntlLfbHrPNt00ZKTA96jC",
     STRIPE_SECRET_KEY:
       "sk_test_51JY8UnDasotYSPMeWBU4nAJKK33UkkLuj7JK9OMtKaPjfOafre8hDb9DLJCbYgs7WfsGBKJSc3pHAMavIPSIhGh000WnrctPxr",
 
-    STRIPE_WEBHOOK_SECRET: "whsec_MoxRILRApLwu5YgLRCWzNcfMOO4s7U5R",
+    STRIPE_WEBHOOK_SECRET: "whsec_BofnAt9UAKVU8nXdLkqKAqnrkenT7bEx",
 
     CLOUDINARY_CLOUD_NAME: "lesha",
     CLOUDINARY_API_KEY: "869167493588397",
