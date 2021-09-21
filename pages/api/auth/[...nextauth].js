@@ -3,7 +3,7 @@ import Providers from "next-auth/providers";
 import mongoDBConnect from "../../../config/db";
 import User from "../../../models/user";
 
-const NextAuth = {
+export default NextAuth({
   session: {
     jwt: true,
   },
@@ -46,5 +46,4 @@ const NextAuth = {
       return Promise.resolve(session);
     },
   },
-};
-export default NextAuth;
+});
