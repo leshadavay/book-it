@@ -47,9 +47,11 @@ function Header() {
           </div>
         </div>
 
-        <div className="col-3 mt-3 mt-md-0 text-center">
+        <div
+          className={classnames("col-3 text-center", user ? "user-wrap" : "")}
+        >
           {user ? (
-            <div className="ml-4 dropdow d-line">
+            <div className="  user-wrap dropdow d-line">
               <a
                 className={classnames(
                   "btn dropdown-toggle mr-4",

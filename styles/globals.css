@@ -320,6 +320,12 @@ nav {
   box-shadow: 0 4px 6px -6px #222;
 }
 
+@media (max-width: 480px) {
+  .user-wrap {
+    margin-right: 3rem;
+  }
+}
+
 .login-header-btn {
   background-color: #e61e4d;
 }
