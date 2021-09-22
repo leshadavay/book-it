@@ -23,9 +23,9 @@ function BookingDetails() {
         <div className="col-12 col-lg-8 mt-5 booking-details">
           {booking && (
             <>
-              <h2 className="my-5">Booking # {booking._id}</h2>
+              <h2 className="my-5 text-info">Booking # {booking._id}</h2>
 
-              <h4 className="mb-4">User Info</h4>
+              <h4 className="mb-4 text-info">User Info</h4>
               <p>
                 <b>Name:</b> {booking.user.name}
               </p>
@@ -38,7 +38,7 @@ function BookingDetails() {
 
               <hr />
 
-              <h4 className="mb-4">Booking Info</h4>
+              <h4 className="mb-4 text-info">Booking Info</h4>
               <p>
                 <b>Check In:</b>{" "}
                 {new Date(booking.checkInDate).toLocaleString("en-US")}
@@ -53,7 +53,7 @@ function BookingDetails() {
 
               <hr />
 
-              <h4 className="my-4">Payment Status</h4>
+              <h4 className="my-4 text-info">Payment Status</h4>
               <p className="greenColor">
                 <b>
                   {booking.paymentInfo.status &&
@@ -61,7 +61,7 @@ function BookingDetails() {
                 </b>
               </p>
 
-              <h4 className="mt-5 mb-4">Booked Room:</h4>
+              <h4 className="mt-5 mb-4 text-info">Booked Room:</h4>
 
               <hr />
               <div className="cart-item my-1">
@@ -86,7 +86,7 @@ function BookingDetails() {
                   </div>
 
                   <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                    <p>{booking.daysOfStays} Day(s)</p>
+                    <p>{booking.daysOfStay} Day(s)</p>
                   </div>
                 </div>
               </div>

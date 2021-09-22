@@ -62,7 +62,7 @@ const updateUserProfile = tryCatchAsyncErrors(async (req, res, next) => {
 
   if (user) {
     user.name = req.body.name;
-    user.name = req.body.email;
+    user.email = req.body.email;
     if (req.body.password) {
       user.password = req.body.password;
     }
