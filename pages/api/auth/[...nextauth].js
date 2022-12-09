@@ -6,6 +6,7 @@ import User from "../../../models/user";
 export default NextAuth({
   session: {
     jwt: true,
+    redirect: false,
   },
   providers: [
     Providers.Credentials({
